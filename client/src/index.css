@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
+
 :root {
   font-family: 'Nunito Sans', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 18px;
@@ -9,16 +10,14 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
 
 .ant-typography {
   font-family: 'Nunito Sans', sans-serif !important;
-  color: inherit; 
-  /* Define global css varibales */
-  /* font-size: var(--font-size-normal);   */
-  font-size: 16px;
+  color: inherit;
+  font-size: var(--font-size-normal);
 }
