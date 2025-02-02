@@ -24,7 +24,10 @@ export type Admin = {
 
 export type Division = {
     id: number;
+    code: string;
     name: string;
+    numberOfCollege?: number;
+    numberOfSchools?: number;
 };
 
 export type PassType = "Basic" | "Silver" | "Gold" | "Platinum";
@@ -52,4 +55,13 @@ export type Application = {
     mobile?: string;
     divisionId: number;
     passId?: number;
+};
+
+export type Institute = {
+    id: number;
+    code: string;
+    name: string;
+    divisionId: number;
+    createdAt: Date;
+    isSchool?: boolean;
 };

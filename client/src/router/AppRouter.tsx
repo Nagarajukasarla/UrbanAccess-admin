@@ -3,8 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/common/Spinner";
 import AppLayout from "../components/layout/AppLayout";
 import RouteGuard from "./RouterGuard";
-import Reports from "../pages/Reports";
-import Divisions from "../pages/Divisions";
 import About from "../pages/About";
 
 // const Login = React.lazy(() => import("../pages/Login"));
@@ -14,7 +12,8 @@ const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Applications = React.lazy(() => import("../pages/Applications"));
 const UserManagement = React.lazy(() => import("../pages/UserManagement"));
 const Settings = React.lazy(() => import("../pages/Settings"));
-const Invoice = React.lazy(() => import("../pages/Invoice"));
+const Divisions = React.lazy(() => import("../pages/Divisions"));
+const Reports = React.lazy(() => import("../pages/Reports"));
 
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 
