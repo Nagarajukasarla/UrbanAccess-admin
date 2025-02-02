@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import React from "react";
 import { Outlet } from "react-router-dom";
-import SideBar from "./SideBar";
+import SideBar from "./Sider";
 import AppHeader from "./Header";
 
 const { Header, Sider, Content } = Layout;

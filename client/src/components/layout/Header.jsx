@@ -7,8 +7,8 @@ import logo from "../../assets/img/logo.jpg";
 // import MiniProfileView from "../feature/MiniProfileView";
 
 const AppHeader = () => {
-    const [showProfile, setShowProfile] = useState(false);
-    const profileIconRef = useRef<HTMLDivElement>(null);
+    // const [showProfile, setShowProfile] = useState(false);
+    // const profileIconRef = useRef<HTMLDivElement>(null);
 
     return (
         <div className="app-header">
