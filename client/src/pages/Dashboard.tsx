@@ -1,9 +1,9 @@
 import {
     CheckCircleOutlined,
+    CloseCircleOutlined,
     DownOutlined,
     LineChartOutlined,
-    RiseOutlined,
-    ShoppingCartOutlined,
+    ShoppingCartOutlined
 } from "@ant-design/icons";
 import {
     Card,
@@ -58,9 +58,10 @@ const Dashboard: React.FC = () => {
         },
     ];
 
-    const [companyAnalytics, setCompanyAnalytics] = useState<ChartData[]>([]);
-    const [productAnalytics, setProductAnalytics] = useState<ChartData[]>([]);
+    const [passTypeAnalytics, setPassTypeAnalytics] = useState<ChartData[]>([]);
+    const [divisionAnalytics, setDivisionAnalytics] = useState<ChartData[]>([]);
     const [revenueAnalytics, setRevenueAnalytics] = useState<ChartData[]>([]);
+
     const [selectedPeriod, setSelectedPeriod] = useState<string>(items[0]?.value as string);
 
     const handlePeriodChange = (value: string) => {
@@ -74,25 +75,24 @@ const Dashboard: React.FC = () => {
 
     const loadData = () => {
         const companyAnalytics: ChartData[] = [
-            { label: "Company A", value: 400 },
-            { label: "Company B", value: 200 },
-            { label: "Company C", value: 300 },
-            { label: "Company D", value: 100 },
-            { label: "Company E", value: 200 },
+            { label: "Basic Pass", value: 400 },
+            { label: "Silver Pass", value: 300 },
+            { label: "Gold Pass", value: 100 },
+            { label: "Platinum Pass", value: 200 },
         ];
 
         const productAnalytics: ChartData[] = [
-            { label: "Product A", value: 4000 },
-            { label: "Product B", value: 2800 },
-            { label: "Product C", value: 300 },
-            { label: "Product D", value: 100 },
-            { label: "Product E", value: 1600 },
-            { label: "Product F", value: 1700 },
-            { label: "Product G", value: 200 },
-            { label: "Product H", value: 150 },
-            { label: "Product I", value: 200 },
-            { label: "Product J", value: 789 },
-            { label: "Product K", value: 459 },
+            { label: "Kukatpally", value: 4000 },
+            { label: "Secunderabad", value: 2800 },
+            { label: "Kondapur", value: 300 },
+            { label: "Dilsuknagar", value: 100 },
+            { label: "Ameerpet", value: 1600 },
+            { label: "Afzalgunj", value: 1700 },
+            { label: "Kapra", value: 200 },
+            { label: "Nizampet", value: 150 },
+            { label: "Nampally", value: 200 },
+            { label: "Miyapur", value: 789 },
+            { label: "Gachibowli", value: 459 },
         ];
 
         const revenueAnalytics: ChartData[] = [
@@ -110,8 +110,8 @@ const Dashboard: React.FC = () => {
             { label: "December", value: 12000 },
         ];
 
-        setCompanyAnalytics(companyAnalytics);
-        setProductAnalytics(productAnalytics);
+        setPassTypeAnalytics(companyAnalytics);
+        setDivisionAnalytics(productAnalytics);
         setRevenueAnalytics(revenueAnalytics);
     };
 
@@ -124,7 +124,7 @@ const Dashboard: React.FC = () => {
                             icon={
                                 <ShoppingCartOutlined className="card-icon orders-card-icon" />
                             }
-                            title={"Orders"}
+                            title={"Applications"}
                             value={"1,234"}
                             style={{ marginRight: "44px" }}
                         />
@@ -132,15 +132,15 @@ const Dashboard: React.FC = () => {
                             icon={
                                 <CheckCircleOutlined className="card-icon bills-closed-card-icon" />
                             }
-                            title={"Bills Closed"}
+                            title={"Accepted"}
                             value={"1,234"}
                             style={{ marginRight: "44px" }}
                         />
                         <DashboardCard
                             icon={
-                                <RiseOutlined className="card-icon today-revenue-card-icon" />
+                                <CloseCircleOutlined className="card-icon today-revenue-card-icon" />
                             }
-                            title={"Todays Revenue"}
+                            title={"Rejected"}
                             value={"1,234"}
                             style={{ marginRight: "44px" }}
                         />
@@ -158,13 +158,13 @@ const Dashboard: React.FC = () => {
                                 <div className="pieChartHeader">
                                     <p>Analysis</p>
                                 </div>
-                                <DashboardPieChart data={companyAnalytics} />
+                                <DashboardPieChart data={passTypeAnalytics} />
                             </Card>
                             <Card>
                                 <div className="barChartHeader">
-                                    <p>Top 10 Products</p>
+                                    <p>Top 10 Divisions</p>
                                 </div>
-                                <DashboardBarChart data={productAnalytics} />
+                                <DashboardBarChart data={divisionAnalytics} />
                             </Card>
                         </Space>
                     </Row>

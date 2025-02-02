@@ -1,18 +1,17 @@
 import {
     AppstoreAddOutlined,
-    LayoutOutlined,
-    UserOutlined,
-    CreditCardOutlined,
-    SlackOutlined,
+    ContainerOutlined,
+    DeploymentUnitOutlined,
     InfoCircleOutlined,
-    SettingOutlined
+    SettingOutlined,
+    SlidersOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
 import { Menu, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-import '../../assets/css/sideBar.css';
+import "../../assets/css/sideBar.css";
 
 const SideBar: React.FC = () => {
-
     const navigate = useNavigate();
 
     const navigateTo = (path: string): void => {
@@ -23,45 +22,73 @@ const SideBar: React.FC = () => {
     const items = [
         {
             key: "/app/dashboard",
-            label: <Typography.Text className="menu-item-text">Dashboard</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Dashboard
+                </Typography.Text>
+            ),
             icon: <AppstoreAddOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/dashboard"),
         },
         {
-            key: "/app/invoice",
-            label: <Typography.Text className="menu-item-text">Invoice</Typography.Text>,
-            icon: <LayoutOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/invoice"),
-        },
-        {
-            key: "/app/customers",
-            label: <Typography.Text className="menu-item-text">Customers</Typography.Text>,
+            key: "/app/user-management",
+            label: (
+                <Typography.Text className="menu-item-text">
+                    User Management
+                </Typography.Text>
+            ),
             icon: <UserOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/customers"),
+            onClick: () => navigateTo("/app/user-management"),
         },
         {
-            key: "/app/stocks",
-            label: <Typography.Text className="menu-item-text">Stocks</Typography.Text>,
-            icon: <CreditCardOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/stocks"),
+            key: "/app/applications",
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Applications
+                </Typography.Text>
+            ),
+            icon: <ContainerOutlined className="menu-item-icon" />,
+            onClick: () => navigateTo("/app/applications"),
         },
         {
-            key: "/app/subscriptions",
-            label: <Typography.Text className="menu-item-text">Subscriptions</Typography.Text>,
-            icon: <SlackOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/subscriptions"),
+            key: "app/divisions",
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Divisions
+                </Typography.Text>
+            ),
+            icon: <DeploymentUnitOutlined className="menu-item-icon" />,
+            onClick: () => navigateTo("/app/divisions"),
         },
         {
-            key: "/app/about",
-            label: <Typography.Text className="menu-item-text">About</Typography.Text>,
-            icon: <InfoCircleOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/about"),
+            key: "app/reports",
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Reports
+                </Typography.Text>
+            ),
+            icon: <SlidersOutlined className="menu-item-icon" />,
+            onClick: () => navigateTo("/app/reports"),
         },
         {
             key: "/app/settings",
-            label: <Typography.Text className="menu-item-text">Settings</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Settings
+                </Typography.Text>
+            ),
             icon: <SettingOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/settings"),
+        },
+        {
+            key: "/app/about",
+            label: (
+                <Typography.Text className="menu-item-text">
+                    About
+                </Typography.Text>
+            ),
+            icon: <InfoCircleOutlined className="menu-item-icon" />,
+            onClick: () => navigateTo("/app/about"),
         },
     ];
 
@@ -74,6 +101,6 @@ const SideBar: React.FC = () => {
             className="side-menu"
         />
     );
-}
+};
 
 export default SideBar;

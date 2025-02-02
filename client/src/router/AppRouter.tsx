@@ -3,6 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/common/Spinner";
 import AppLayout from "../components/layout/AppLayout";
 import RouteGuard from "./RouterGuard";
+import Reports from "../pages/Reports";
+import Divisions from "../pages/Divisions";
+import About from "../pages/About";
 
 // const Login = React.lazy(() => import("../pages/Login"));
 // const Register = React.lazy(() => import("../pages/Register"));
@@ -15,7 +18,7 @@ const Settings = React.lazy(() => import("../pages/Settings"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 
 const AppRoutes: React.FC = () => (
-    <React.Suspense fallback={<Spinner />} >
+    <React.Suspense fallback={<Spinner />}>
         <Routes>
             {/* Auth routes - No Layout */}
             {/* <Route path="/login" element={
@@ -30,17 +33,25 @@ const AppRoutes: React.FC = () => (
             } /> */}
 
             {/* App Routes - With AppLayout */}
-            <Route element={
-                <RouteGuard>
-                    <AppLayout />
-                </RouteGuard>
-            }>
+            <Route
+                element={
+                    <RouteGuard>
+                        <AppLayout />
+                    </RouteGuard>
+                }
+            >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/app">
                     <Route path="dashboard" element={<Dashboard />} />
+                    <Route
+                        path="user-management"
+                        element={<UserManagement />}
+                    />
                     <Route path="applications" element={<Applications />} />
-                    <Route path="user-management" element={<UserManagement />} />
+                    <Route path="divisions" element={<Divisions />} />
+                    <Route path="reports" element={<Reports />} />
                     <Route path="settings" element={<Settings />} />
+                    <Route path="about" element={<About />} />
                 </Route>
             </Route>
 
