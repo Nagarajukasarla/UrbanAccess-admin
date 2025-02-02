@@ -1,11 +1,8 @@
 import React from "react";
+import Institutes from "../components/common/Institues";
 
 const Divisions: React.FC = () => {
-    return (
-        <div>
-            <h1>Divisions</h1>
-        </div>
-    );
+    return <Institutes />;
 };
 
 export default Divisions;

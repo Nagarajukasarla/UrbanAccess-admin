@@ -64,9 +64,11 @@ export type Application = {
 };
 
 export type Institute = {
+    
     id: number;
     code: string;
     name: string;
+    email?: string;
     divisionId: number;
     createdAt: Date;
     isSchool?: boolean;

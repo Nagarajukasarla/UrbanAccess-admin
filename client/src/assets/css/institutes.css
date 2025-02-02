@@ -1,0 +1,93 @@
+.institutes-container {
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.institutes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.institutes-header h2 {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.search-input {
+    width: 280px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    border-color: #1890ff;
+    box-shadow: 0 0 5px rgba(24, 144, 255, 0.3);
+}
+
+/* Table Styling */
+.institutes-table {
+    margin-top: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.institutes-table .ant-table-thead > tr > th {
+    background: #f0f2f5;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+    padding: 12px;
+}
+
+/* Table Rows */
+.institutes-table .ant-table-tbody > tr > td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.institutes-table .ant-table-tbody > tr:nth-child(odd) {
+    background: #fcfcfc;
+}
+
+/* Hover Effect */
+
+/* .institutes-table .ant-table-tbody > tr:hover,
+.institutes-table .ant-table-tbody > tr.ant-table-row-hover {
+    background: #e6f7ff !important;
+}
+
+/* .institutes-table .ant-table-tbody > tr:hover {
+    background: #e6f7ff;
+}
+
+.hoverable-row:hover {
+    background: #e6f7ff !important;
+} */
+
+.institutes-table .ant-table-tbody > tr.hovered-row {
+    background: #e6f7ff !important;
+}
+
+/* Type Tag */
+.institutes-table .ant-tag {
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Status Tag */
+.institutes-table .ant-tag-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
