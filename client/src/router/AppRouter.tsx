@@ -14,6 +14,7 @@ const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Applications = React.lazy(() => import("../pages/Applications"));
 const UserManagement = React.lazy(() => import("../pages/UserManagement"));
 const Settings = React.lazy(() => import("../pages/Settings"));
+const Invoice = React.lazy(() => import("../pages/Invoice"));
 
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 
