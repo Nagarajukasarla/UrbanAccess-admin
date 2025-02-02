@@ -11,6 +11,7 @@ const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Applications = React.lazy(() => import("../pages/Applications"));
 const UserManagement = React.lazy(() => import("../pages/UserManagement"));
 const Settings = React.lazy(() => import("../pages/Settings"));
+const Invoice = React.lazy(() => import("../pages/Invoice"));
 
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 
@@ -38,6 +39,7 @@ const AppRoutes: React.FC = () => (
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/app">
                     <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="invoice" element={<Invoice />} />
                     <Route path="applications" element={<Applications />} />
                     <Route path="user-management" element={<UserManagement />} />
                     <Route path="settings" element={<Settings />} />
