@@ -5,23 +5,13 @@ type StatusButtonProps = {
   status: string;
 };
 
-const getStatusColor = (status: string): "green" | "red" | "gray" => {
-  switch (status.toLowerCase()) {
-    case "approved":
-      return "green";
-    case "rejected":
-      return "red";
-    default:
-      return "gray";
-  }
-};
-
 const StatusButton: React.FC<StatusButtonProps> = ({ status }) => {
-  return (
-    <Button style={{ backgroundColor: getStatusColor(status), color: "white" }}>
-      {status}
-    </Button>
-  );
+  let buttonProps = {};
+  if (status === "Pending") buttonProps = { type: "default", style: { backgroundColor: "orange", color: "white" } };
+  if (status === "Approved") buttonProps = { type: "primary", style: { backgroundColor: "green", color: "white" } };
+  if (status === "Rejected") buttonProps = { type: "primary", style: { backgroundColor: "red", color: "white" } };
+
+  return <Button {...buttonProps}>{status}</Button>;
 };
 
 export default StatusButton;

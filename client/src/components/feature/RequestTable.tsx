@@ -1,36 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, Button, Input } from "antd";
-import StatusButton from "../common/StatusButton"; // Ensure StatusButton is correctly typed
+import StatusButton from "../common/StatusButton";
+import { Application } from "../../types/model";
 
 const { Search } = Input;
 
-type RequestData = {
-  id: string;
-  name: string;
-  passType: string;
-  email: string;
-  gender: string;
-  status: string;
-};
-
 type RequestTableProps = {
-  data: RequestData[];
+  data: Application[];
 };
 
-const RequestTable: React.FC<RequestTableProps> = ({ data }) => {
+const RequestTable: React.FC<RequestTableProps> = ({ data = [] }) => {
+  useEffect(() => {
+    console.log("RequestTable data:", data);
+  }, [data]);
+
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
     { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Pass Type", dataIndex: "passType", key: "passType" },
     { title: "Email", dataIndex: "email", key: "email" },
-    { title: "Gender", dataIndex: "gender", key: "gender" },
-    { 
-      title: "Status", 
-      dataIndex: "status", 
-      key: "status", 
-      render: (status: string) => <StatusButton status={status} /> 
-    },
+    { title: "Mobile", dataIndex: "mobile", key: "mobile" },
+    { title: "Division ID", dataIndex: "divisionId", key: "divisionId" },
+    { title: "Pass ID", dataIndex: "passId", key: "passId" },
+    { title: "Status", dataIndex: "status", key: "status", render: (status: string) => <StatusButton status={status} /> },
+    { title: "Updated By", dataIndex: "updatedBy", key: "updatedBy" },
   ];
+  console.log("RequestTable data:", JSON.stringify(data, null, 2));
 
   return (
     <div>
@@ -38,7 +32,7 @@ const RequestTable: React.FC<RequestTableProps> = ({ data }) => {
         <Search placeholder="Search" style={{ width: 200 }} />
         <Button type="primary" danger>Reset Filter</Button>
       </div>
-      <Table columns={columns} dataSource={data} rowKey="id" />
+      <Table columns={columns} dataSource={data ? data.filter(Boolean) : []} rowKey="id" />
     </div>
   );
 };

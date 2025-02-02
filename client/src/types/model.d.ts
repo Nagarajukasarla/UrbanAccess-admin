@@ -31,7 +31,7 @@ export type PassType = "Basic" | "Silver" | "Gold" | "Platinum";
 
 export type PassStatus = "Active" | "Inactive";
 
-export type ApplicationStatus = "Pending" | "Approved" | "Rejected";
+// export type ApplicationStatus = "Pending" | "Approved" | "Rejected";
 
 export type Pass = {
     id: number;
@@ -47,13 +47,15 @@ export type Pass = {
     updatedBy: number;
 };
 
+export type ApplicationStatus = "Pending" | "Approved" | "Rejected";
+
 export type Application = {
-    id: number;
-    name: string;
-    email: string;
-    mobile?: string;
-    divisionId: number;
-    passId?: number;
-    status?: ApplicationStatus;
-    updatedBy?: number; // Admin ID
+  id: number;
+  name: string;
+  email: string;
+  mobile?: string;
+  divisionId: number;
+  passId?: number;
+  status?: ApplicationStatus;
+  updatedBy?: number; // Admin ID
 };
