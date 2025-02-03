@@ -1,10 +1,11 @@
 import React from "react";
+import UnderConstruction from "./UnderConstruction";
 
 
 const Reports: React.FC = () => {
     return (
         <div>
-            <h1>Reports</h1>
+            <UnderConstruction/>
         </div>
     );
 };
