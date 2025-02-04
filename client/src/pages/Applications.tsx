@@ -1,14 +1,17 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Input, Space, Table, Tag } from "antd";
+import { Button, Input, Space, Table, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/applications.css";
-import { Application } from "../types/model";
 import { applications } from "../data/components";
+import { Application } from "../types/model";
 
 const Applications: React.FC = () => {
     // const [requestData, setRequestData] = useState<Application[]>([]);
     const [hoveredRowKey, setHoveredRowKey] = useState<number | null>(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Applications";
@@ -16,40 +19,78 @@ const Applications: React.FC = () => {
     }, []);
 
     const columns: ColumnsType<Application> = [
-        { title: "ID", dataIndex: "id", key: "id" },
-        { title: "Name", dataIndex: "name", key: "name" },
-        { title: "Email", dataIndex: "email", key: "email" },
-        { title: "Mobile", dataIndex: "mobile", key: "mobile" },
-        { title: "Division ID", dataIndex: "divisionId", key: "divisionId" },
-        { title: "Pass ID", dataIndex: "passId", key: "passId" },
         {
-            title: "Status",
-            dataIndex: "status",
-            key: "status",
-            render: (status: string) => {
-                let color = "blue";
-                switch (status) {
-                    case "Approved":
-                        color = "green";
-                        break;
-                    case "Rejected":
-                        color = "red";
-                        break;
-                    case "Pending":
-                        color = "orange";
-                        break;
-                }
-                return (
-                    <Tag
-                        color={color}
-                        style={{ fontWeight: "bold", padding: "5px 12px" }}
-                    >
-                        {status}
-                    </Tag>
-                );
-            },
+            title: "ID",
+            dataIndex: "id",
+            key: "id",
+            render: (_: string, record: Application) => (
+                <Typography.Text>{record.id}</Typography.Text>
+            ),
         },
-        { title: "Updated By", dataIndex: "updatedBy", key: "updatedBy" },
+        {
+            title: "First Name",
+            dataIndex: "firstName",
+            key: "firstName",
+            render: (_: string, record: Application) => (
+                <Typography.Text>
+                    {record.personalInfo?.firstName}
+                </Typography.Text>
+            ),
+        },
+        {
+            title: "Last Name",
+            dataIndex: "lastName",
+            key: "lastName",
+            render: (_: string, record: Application) => (
+                <Typography.Text>
+                    {record.personalInfo?.lastName}
+                </Typography.Text>
+            ),
+        },
+        {
+            title: "Email",
+            dataIndex: "email",
+            key: "email",
+            render: (_: string, record: Application) => (
+                <Typography.Text>{record.personalInfo?.email}</Typography.Text>
+            ),
+        },
+        {
+            title: "Mobile",
+            dataIndex: "mobile",
+            key: "mobile",
+            render: (_: string, record: Application) => (
+                <Typography.Text>{record.mobile}</Typography.Text>
+            ),
+        },
+        {
+            title: "Division ID",
+            dataIndex: "divisionId",
+            key: "divisionId",
+            render: (_: number, record: Application) => (
+                <Typography.Text>{record.divisionId}</Typography.Text>
+            ),
+        },
+        {
+            title: "Pass ID",
+            dataIndex: "passId",
+            key: "passId",
+            render: (_: number, record: Application) => (
+                <Typography.Text>{record.passId}</Typography.Text>
+            ),
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (_: string, record: Application) => (
+                <Button
+                    type="primary"
+                    onClick={() => navigate(`/app/applications/${record.id}`)}
+                >
+                    Verify
+                </Button>
+            ),
+        },
     ];
 
     const loadData = () => {
@@ -83,7 +124,7 @@ const Applications: React.FC = () => {
                 rowClassName={(record) =>
                     record.id === hoveredRowKey ? "hovered-row" : ""
                 }
-            />
+            />{" "}
         </div>
     );
 };

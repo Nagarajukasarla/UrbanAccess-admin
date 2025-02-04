@@ -30,16 +30,16 @@ const SideBar: React.FC = () => {
             icon: <AppstoreAddOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/dashboard"),
         },
-        {
-            key: "/app/user-management",
-            label: (
-                <Typography.Text className="menu-item-text">
-                    User Management
-                </Typography.Text>
-            ),
-            icon: <UserOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/user-management"),
-        },
+        // {
+        //     key: "/app/user-management",
+        //     label: (
+        //         <Typography.Text className="menu-item-text">
+        //             User Management
+        //         </Typography.Text>
+        //     ),
+        //     icon: <UserOutlined className="menu-item-icon" />,
+        //     onClick: () => navigateTo("/app/user-management"),
+        // },
         {
             key: "/app/applications",
             label: (

@@ -1,0 +1,87 @@
+.applicant-profile-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #1890ff, #096dd9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-title {
+    flex: 1;
+}
+
+.profile-title h3 {
+    margin: 0 0 8px 0;
+}
+
+.profile-subtitle {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.info-section {
+    margin-bottom: 24px;
+}
+
+.info-section h5 {
+    margin-bottom: 16px;
+    color: #1890ff;
+}
+
+.info-item {
+    margin-bottom: 12px;
+    color: #4a4a4a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-item .anticon {
+    color: #1890ff;
+    font-size: 16px;
+}
+
+.address-container {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    color: #4a4a4a;
+    line-height: 1.6;
+}
+
+.address-icon {
+    color: #1890ff;
+    font-size: 20px;
+    margin-top: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-subtitle {
+        justify-content: center;
+    }
+}

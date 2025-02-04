@@ -2,8 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/common/Spinner";
 import AppLayout from "../components/layout/AppLayout";
-import RouteGuard from "./RouterGuard";
 import About from "../pages/About";
+import { VerifyApplication } from "../pages/VerifyApplication";
+import RouteGuard from "./RouterGuard";
 
 // const Login = React.lazy(() => import("../pages/Login"));
 // const Register = React.lazy(() => import("../pages/Register"));
@@ -43,11 +44,15 @@ const AppRoutes: React.FC = () => (
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/app">
                     <Route path="dashboard" element={<Dashboard />} />
-                    <Route
+                    {/* <Route
                         path="user-management"
                         element={<UserManagement />}
-                    />
+                    /> */}
                     <Route path="applications" element={<Applications />} />
+                    <Route
+                        path="applications/:applicationId"
+                        element={<VerifyApplication />}
+                    />
                     <Route path="divisions" element={<Divisions />} />
                     <Route path="reports" element={<Reports />} />
                     <Route path="settings" element={<Settings />} />

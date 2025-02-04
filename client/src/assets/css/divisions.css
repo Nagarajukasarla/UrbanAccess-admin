@@ -1,0 +1,61 @@
+.divisions-container {
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.divisions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.divisions-header h2 {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.search-input {
+    width: 280px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    border-color: #1890ff;
+    box-shadow: 0 0 5px rgba(24, 144, 255, 0.3);
+}
+
+.divisions-table {
+    margin-top: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.divisions-table .ant-table-thead > tr > th {
+    background: #f0f2f5;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+    padding: 12px;
+}
+
+.divisions-table .ant-table-tbody > tr > td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.divisions-table .ant-table-tbody > tr:nth-child(odd) {
+    background: #fcfcfc;
+}
+
+.divisions-table .ant-table-tbody > tr.hovered-row {
+    background: #e6f7ff !important;
+}
