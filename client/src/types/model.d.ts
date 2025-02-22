@@ -1,12 +1,6 @@
-export type Owner = {
-    id: number;
-    name: string;
-    image?: string;
-};
-
 export type LiteAdmin = {
     id: number;
-    ownerId: number;
+    isOwner: boolean;
     email: string;
     name: string;
     image?: string;
@@ -14,8 +8,8 @@ export type LiteAdmin = {
 
 export type Admin = {
     id: number;
+    isOwner: boolean;
     name: string;
-    ownerId: number;
     image?: string;
     email: string;
     mobile?: string;
@@ -26,6 +20,9 @@ export type Division = {
     id: number;
     code: string;
     name: string;
+    area: string;
+    place: string;
+    city: string;
     numberOfCollege?: number;
     numberOfSchools?: number;
 };

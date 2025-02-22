@@ -6,9 +6,8 @@ import About from "../pages/About";
 import { VerifyApplication } from "../pages/VerifyApplication";
 import RouteGuard from "./RouterGuard";
 
-// const Login = React.lazy(() => import("../pages/Login"));
-// const Register = React.lazy(() => import("../pages/Register"));
-
+const Login = React.lazy(() => import("../pages/Login"));
+const Register = React.lazy(() => import("../pages/Register"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Applications = React.lazy(() => import("../pages/Applications"));
 const UserManagement = React.lazy(() => import("../pages/UserManagement"));
@@ -22,16 +21,16 @@ const AppRoutes: React.FC = () => (
     <React.Suspense fallback={<Spinner />}>
         <Routes>
             {/* Auth routes - No Layout */}
-            {/* <Route path="/login" element={
+            <Route path="/login" element={
                 <RouteGuard isAuthPage={true}>
                     <Login />
                 </RouteGuard>
-            } /> */}
-            {/* <Route path="/register" element={
+            } />
+            <Route path="/register" element={
                 <RouteGuard isAuthPage={true}>
                     <Register />
                 </RouteGuard>
-            } /> */}
+            } />
 
             {/* App Routes - With AppLayout */}
             <Route

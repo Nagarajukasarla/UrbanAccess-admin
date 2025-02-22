@@ -2,6 +2,10 @@ const API_ROUTES = {
     AUTHENTICATE: "/authenticate",
     LOGIN: "/auth/sign-in",
     REGISTER: "/auth/register",
+    VERIFY_OTP: "/auth/verify-otp",
+    LOGOUT: "/auth/logout",
+    FORGOT_PASSWORD: "/auth/forgot-password",
+    RESET_PASSWORD: "/auth/reset-password",
     FETCH_LITE_USER: "/lite-shop",
     FETCH_USER: "/shop/:shopId",    // Verify the syntax
     UPDATE_USER: "/shop/:shopId/update",   // Verify the syntax

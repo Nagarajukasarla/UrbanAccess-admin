@@ -1,6 +1,7 @@
 import APIResponse from "../../classes/APIResponse";
 import API_ROUTES from "../../constants/apiRoutes";
-import { LiteUser } from "../../types/model";
+import { LoginRequest, SignupRequest } from "../../types/api";
+import { LiteAdmin } from "../../types/model";
 import BaseService from "./baseService";
 
 class AuthService extends BaseService {
@@ -14,22 +15,59 @@ class AuthService extends BaseService {
 
     /**
      * Logs in a user with email and password.
-     * @param email The user's email address.
-     * @param password The user's password.
-     * @returns A promise that resolves to an `APIResponse` containing a `LiteUser` object.
+     * @param payload The user's email address and password.
+     * @returns A promise that resolves to an `APIResponse` containing a `LiteAdmin` object.
      */
-    async loginWithPassword(email: string, password: string): Promise<APIResponse<LiteUser>> {
-        return this.post<LiteUser>(API_ROUTES.LOGIN, { email, password });
+    async loginWithPassword(payload: LoginRequest): Promise<APIResponse<LiteAdmin>> {
+        return this.post<LiteAdmin>(API_ROUTES.LOGIN, payload);
     }
 
-    /**
-     * Logs in a user with email and OTP.
-     * @param email The user's email address.
-     * @param otp The one-time password.
-     * @returns A promise that resolves to an `APIResponse` containing a `LiteUser` object.
-     */
-    async loginWithOTP(email: string, otp: string): Promise<APIResponse<LiteUser>> {
-        return this.post<LiteUser>(API_ROUTES.LOGIN, { email, otp });
+    // Create signup api
+    // it should send a email to user
+    async signup(payload: SignupRequest): Promise<APIResponse<boolean>> {
+        return this.post<boolean>(API_ROUTES.REGISTER, payload);
+    }
+
+    // Create otp verification api
+    // it should verify the otp and return the user details
+    // redirect to login
+
+    async verifyOtp(otp: string): Promise<APIResponse<LiteAdmin>> {
+        return this.post<LiteAdmin>(API_ROUTES.VERIFY_OTP, { otp });
+    }
+
+    // Create login api
+    // login with email and password
+    // Update local storage with user details
+    // redirect to dashboard
+    async login(payload: LoginRequest): Promise<APIResponse<LiteAdmin>> {
+        return this.post<LiteAdmin>(API_ROUTES.LOGIN, payload);
+    }
+
+    // Create logout api
+    // remove user details from local storage
+    // redirect to login
+
+    async logout(): Promise<APIResponse<boolean>> {
+        // Clear local storage
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        return new APIResponse(APIResponse.SUCCESS, true);
+    }
+
+    // Create forgot password api
+    // it should send otp to user email
+    // redirect to otp verification
+    // validate otp
+    // in the same page only take new password & confirm password
+    // redirect to login
+
+    async forgotPassword(email: string): Promise<APIResponse<boolean>> {
+        return this.post<boolean>(API_ROUTES.FORGOT_PASSWORD, { email });
+    }
+
+    async resetPassword(payload: { otp: string, password: string }): Promise<APIResponse<boolean>> {
+        return this.post<boolean>(API_ROUTES.RESET_PASSWORD, payload);
     }
 
 }
