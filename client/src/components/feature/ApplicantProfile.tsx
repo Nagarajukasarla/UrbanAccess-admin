@@ -11,7 +11,6 @@ import "../../assets/css/applicantProfile.css";
 
 interface ApplicantProfileProps {
     application: CollegeStudentApplication;
-    original: boolean;
 }
 
 export const ApplicantProfile: React.FC<ApplicantProfileProps> = ({
@@ -149,3 +148,5 @@ export const ApplicantProfile: React.FC<ApplicantProfileProps> = ({
         </Card>
     );
 };
+
+export default ApplicantProfile;

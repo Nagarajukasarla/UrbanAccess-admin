@@ -1,14 +1,16 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Input, Space, Table } from "antd";
+import { Button, Input, Modal, Space, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
-import React from "react";
+import React, { useState } from "react";
 import "../assets/css/divisions.css";
 import { divisions } from "../data/components";
 import { Division } from "../types/model";
+import CreateDivision from "../components/common/CreateDivision";
+// import useMessage from "antd/es/message/useMessage";
 
 const Divisions: React.FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-const [hoveredRowKey, setHoveredRowKey] = React.useState<number | null>(
+    const [hoveredRowKey, setHoveredRowKey] = React.useState<number | null>(
         null
     );
 
@@ -31,7 +33,7 @@ const [hoveredRowKey, setHoveredRowKey] = React.useState<number | null>(
         setIsModalVisible(false);
     };
 
-const columns: ColumnsType<Division> = [
+    const columns: ColumnsType<Division> = [
         {
             title: "Code",
             dataIndex: "code",
@@ -66,9 +68,13 @@ const columns: ColumnsType<Division> = [
                         prefix={<SearchOutlined />}
                         className="search-input"
                     />
-<Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-                Add Division
-            </Button>
+                    <Button
+                        type="primary"
+                        onClick={showModal}
+                        style={{ marginBottom: 16 }}
+                    >
+                        Add Division
+                    </Button>
                 </Space>
             </div>
             <Table<Division>
@@ -88,7 +94,6 @@ const columns: ColumnsType<Division> = [
                 }
             />
 
-
             {/* Division Form Modal */}
             <Modal
                 title="Add New Division"
@@ -96,14 +101,19 @@ const columns: ColumnsType<Division> = [
                 onCancel={handleCancel}
                 footer={null} // Custom footer with buttons
             >
-                <CreateDivision
-                    onSubmit={handleFormSubmit}
-                />
+                <CreateDivision onSubmit={handleFormSubmit} />
                 <div style={{ textAlign: "right", marginTop: 16 }}>
                     <Button onClick={handleCancel} style={{ marginRight: 8 }}>
                         Cancel
                     </Button>
-                    <Button type="primary" onClick={() => document.getElementById("division-form-submit")?.click()}>
+                    <Button
+                        type="primary"
+                        onClick={() =>
+                            document
+                                .getElementById("division-form-submit")
+                                ?.click()
+                        }
+                    >
                         Add
                     </Button>
                 </div>
