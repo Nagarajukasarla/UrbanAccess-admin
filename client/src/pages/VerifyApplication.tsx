@@ -29,8 +29,14 @@ export const VerifyApplication: React.FC = () => {
     return (
         <Col>
             <Row>
-                <ApplicantDetailsView application={data} />
-                <ApplicantProfile application={data} />
+                <Col span={12}>
+                    <Typography.Title level={3}>New Application</Typography.Title>
+                    <ApplicantDetailsView application={data} />
+                </Col>
+                <Col span={12}>
+                    <Typography.Title level={3}>Previous Application</Typography.Title>
+                    <ApplicantProfile application={data} />
+                </Col>
             </Row>
             <Row
                 style={{
