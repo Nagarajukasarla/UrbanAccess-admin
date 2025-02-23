@@ -12,7 +12,9 @@ import {
     Select,
     Space,
     Statistic,
-    Typography
+    Typography,
+    message,
+    Spin
 } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import React, { useEffect, useState } from "react";
@@ -35,6 +37,8 @@ import {
     ChartDataProps,
     DashboardCardProps,
 } from "../types/component";
+import { dashboardService } from "../services/api/dashboardService";
+import APIResponse from "../classes/APIResponse";
 
 const Dashboard: React.FC = () => {
     const items: DefaultOptionType[] = [
@@ -42,7 +46,7 @@ const Dashboard: React.FC = () => {
             value: "1",
             label: (
                 <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <img src={monthImg} width={20} height={20} />
+                    <img src={monthImg} width={20} height={20} alt="Monthly" />
                     <Typography.Text>Monthly Revenue</Typography.Text>
                 </span>
             ),
@@ -51,147 +55,179 @@ const Dashboard: React.FC = () => {
             value: "2",
             label: (
                 <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <img src={monthImg} width={20} height={20} />
+                    <img src={monthImg} width={20} height={20} alt="Yearly" />
                     <Typography.Text>Yearly Revenue</Typography.Text>
                 </span>
             ),
         },
     ];
 
+    // State management
+    const [selectedPeriod, setSelectedPeriod] = useState<string>(items[0]?.value as string);
+    const [applications, setApplications] = useState<number>(0);
+    const [accepted, setAccepted] = useState<number>(0);
+    const [rejected, setRejected] = useState<number>(0);
+    const [monthly, setMonthly] = useState<number>(0);
     const [passTypeAnalytics, setPassTypeAnalytics] = useState<ChartData[]>([]);
     const [divisionAnalytics, setDivisionAnalytics] = useState<ChartData[]>([]);
     const [revenueAnalytics, setRevenueAnalytics] = useState<ChartData[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const [selectedPeriod, setSelectedPeriod] = useState<string>(items[0]?.value as string);
+    const loadData = async () => {
+        try {
+            setLoading(true);
+            message.loading({ content: "Loading dashboard data...", key: "dashboard" });
 
-    const handlePeriodChange = (value: string) => {
-        setSelectedPeriod(value);
-        console.log(value);
+            const [statsResponse, passResponse, divisionResponse] = await Promise.all([
+                dashboardService.getDashboardStats(),
+                dashboardService.getPassTypeAnalytics(),
+                dashboardService.getDivisionAnalytics()
+            ]);
+
+            if (statsResponse.code === APIResponse.SUCCESS) {
+                const stats = statsResponse.data;
+                setApplications(stats.totalApplications);
+                setAccepted(stats.acceptedApplications);
+                setRejected(stats.rejectedApplications);
+                setMonthly(stats.monthlyApplications);
+            }
+
+            if (passResponse.code === APIResponse.SUCCESS) {
+                setPassTypeAnalytics(passResponse.data);
+            }
+
+            if (divisionResponse.code === APIResponse.SUCCESS) {
+                setDivisionAnalytics(divisionResponse.data);
+            }
+
+            // Load initial revenue data
+            await handlePeriodChange(selectedPeriod);
+
+            message.success({ 
+                content: "Dashboard loaded successfully!", 
+                key: "dashboard" 
+            });
+        } catch (error) {
+            message.error({
+                content: "Failed to load dashboard data. Please try again.",
+                key: "dashboard"
+            });
+            console.error("Dashboard loading error:", error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+    const handlePeriodChange = async (value: string) => {
+        try {
+            setSelectedPeriod(value);
+            message.loading({ content: "Loading revenue data...", key: "revenue" });
+
+            const response = await dashboardService.getRevenueAnalytics({
+                period: value === "1" ? "monthly" : "yearly"
+            });
+
+            if (response.code === APIResponse.SUCCESS) {
+                setRevenueAnalytics(response.data);
+                message.success({ 
+                    content: "Revenue data updated!", 
+                    key: "revenue" 
+                });
+            } else {
+                throw new Error(response.description);
+            }
+        } catch (error) {
+            message.error({
+                content: "Failed to load revenue data. Please try again.",
+                key: "revenue"
+            });
+            console.error("Revenue loading error:", error);
+        }
+    };
+
     useEffect(() => {
         document.title = "Dashboard";
         loadData();
     }, []);
 
-    const loadData = () => {
-        const companyAnalytics: ChartData[] = [
-            { label: "Basic Pass", value: 400 },
-            { label: "Silver Pass", value: 300 },
-            { label: "Gold Pass", value: 100 },
-            { label: "Platinum Pass", value: 200 },
-        ];
-
-        const productAnalytics: ChartData[] = [
-            { label: "Kukatpally", value: 4000 },
-            { label: "Secunderabad", value: 2800 },
-            { label: "Kondapur", value: 300 },
-            { label: "Dilsuknagar", value: 100 },
-            { label: "Ameerpet", value: 1600 },
-            { label: "Afzalgunj", value: 1700 },
-            { label: "Kapra", value: 200 },
-            { label: "Nizampet", value: 150 },
-            { label: "Nampally", value: 200 },
-            { label: "Miyapur", value: 789 },
-            { label: "Gachibowli", value: 459 },
-        ];
-
-        const revenueAnalytics: ChartData[] = [
-            { label: "January", value: 1000 },
-            { label: "February", value: 200 },
-            { label: "March", value: 7000 },
-            { label: "April", value: 6000 },
-            { label: "May", value: 8000 },
-            { label: "June", value: 670 },
-            { label: "July", value: 700 },
-            { label: "August", value: 10 },
-            { label: "September", value: 9000 },
-            { label: "October", value: 10000 },
-            { label: "November", value: 500 },
-            { label: "December", value: 12000 },
-        ];
-
-        setPassTypeAnalytics(companyAnalytics);
-        setDivisionAnalytics(productAnalytics);
-        setRevenueAnalytics(revenueAnalytics);
-    };
-
     return (
-        <div>
-            <Col>
-                <Space direction="vertical" size={"large"}>
-                    <Row gutter={6}>
-                        <DashboardCard
-                            icon={
-                                <ShoppingCartOutlined className="card-icon orders-card-icon" />
-                            }
-                            title={"Applications"}
-                            value={"1,234"}
-                            style={{ marginRight: "44px" }}
-                        />
-                        <DashboardCard
-                            icon={
-                                <CheckCircleOutlined className="card-icon bills-closed-card-icon" />
-                            }
-                            title={"Accepted"}
-                            value={"1,234"}
-                            style={{ marginRight: "44px" }}
-                        />
-                        <DashboardCard
-                            icon={
-                                <CloseCircleOutlined className="card-icon today-revenue-card-icon" />
-                            }
-                            title={"Rejected"}
-                            value={"1,234"}
-                            style={{ marginRight: "44px" }}
-                        />
-                        <DashboardCard
-                            icon={
-                                <LineChartOutlined className="card-icon month-revenue-card-icon" />
-                            }
-                            title={"This Month"}
-                            value={"1,234"}
-                        />
-                    </Row>
-                    <Row>
-                        <Space direction="horizontal" size={"large"}>
+        <Spin spinning={loading}>
+            <div>
+                <Col>
+                    <Space direction="vertical" size={"large"}>
+                        <Row gutter={6}>
+                            <DashboardCard
+                                icon={
+                                    <ShoppingCartOutlined className="card-icon orders-card-icon" />
+                                }
+                                title={"Applications"}
+                                value={applications.toLocaleString()}
+                                style={{ marginRight: "44px" }}
+                            />
+                            <DashboardCard
+                                icon={
+                                    <CheckCircleOutlined className="card-icon bills-closed-card-icon" />
+                                }
+                                title={"Accepted"}
+                                value={accepted.toLocaleString()}
+                                style={{ marginRight: "44px" }}
+                            />
+                            <DashboardCard
+                                icon={
+                                    <CloseCircleOutlined className="card-icon today-revenue-card-icon" />
+                                }
+                                title={"Rejected"}
+                                value={rejected.toLocaleString()}
+                                style={{ marginRight: "44px" }}
+                            />
+                            <DashboardCard
+                                icon={
+                                    <LineChartOutlined className="card-icon month-revenue-card-icon" />
+                                }
+                                title={"This Month"}
+                                value={monthly.toLocaleString()}
+                            />
+                        </Row>
+                        <Row>
+                            <Space direction="horizontal" size={"large"}>
+                                <Card>
+                                    <div className="pieChartHeader">
+                                        <p>Pass Type Analysis</p>
+                                    </div>
+                                    <DashboardPieChart data={passTypeAnalytics} />
+                                </Card>
+                                <Card>
+                                    <div className="barChartHeader">
+                                        <p>Top 10 Divisions</p>
+                                    </div>
+                                    <DashboardBarChart data={divisionAnalytics} />
+                                </Card>
+                            </Space>
+                        </Row>
+                        <Row>
                             <Card>
-                                <div className="pieChartHeader">
-                                    <p>Analysis</p>
+                                <div className="revenue-chart-card">
+                                    <Select
+                                        style={{ width: 200, marginBottom: 20 }}
+                                        value={selectedPeriod}
+                                        onChange={handlePeriodChange}
+                                        options={items}
+                                        suffixIcon={<DownOutlined />}
+                                    />
+                                    <RangedRevenueLinedChart
+                                        data={revenueAnalytics}
+                                    />
                                 </div>
-                                <DashboardPieChart data={passTypeAnalytics} />
                             </Card>
-                            <Card>
-                                <div className="barChartHeader">
-                                    <p>Top 10 Divisions</p>
-                                </div>
-                                <DashboardBarChart data={divisionAnalytics} />
-                            </Card>
-                        </Space>
-                    </Row>
-                    <Row>
-                        <Card>
-                            <div className="revenue-chart-card">
-                                <Select
-                                    style={{ width: 200, marginBottom: 20 }}
-                                    value={selectedPeriod}
-                                    onChange={handlePeriodChange}
-                                    options={items}
-                                    suffixIcon={<DownOutlined />}
-                                />
-                                <RangedRevenueLinedChart
-                                    data={revenueAnalytics}
-                                />
-                            </div>
-                        </Card>
-                    </Row>
-                </Space>
-            </Col>
-        </div>
+                        </Row>
+                    </Space>
+                </Col>
+            </div>
+        </Spin>
     );
 };
 
-export default Dashboard;
-
+// Keep existing chart components unchanged
 const DashboardCard: React.FC<DashboardCardProps> = ({
     icon,
     title,
@@ -220,13 +256,14 @@ const DashboardPieChart: React.FC<ChartDataProps> = ({ data }) => {
                 <Tooltip />
                 <Pie
                     data={data}
-                    dataKey={"value"}
+                    dataKey="value"
+                    nameKey="label"
                     cx="45%"
                     cy="50%"
                     outerRadius={105}
-                    color="#8884d8"
+                    fill="#8884d8"
                     label
-                ></Pie>
+                />
             </PieChart>
         </>
     );
@@ -237,9 +274,9 @@ const DashboardBarChart: React.FC<ChartDataProps> = ({ data }) => {
         <>
             <BarChart width={730} height={300} data={data}>
                 <Tooltip />
-                <XAxis dataKey={"name"} />
+                <XAxis dataKey="label" />
                 <YAxis />
-                <Bar dataKey={"value"} barSize={35} fill="#8884d8" />
+                <Bar dataKey="value" barSize={35} fill="#8884d8" />
             </BarChart>
         </>
     );
@@ -259,10 +296,12 @@ const RangedRevenueLinedChart: React.FC<ChartDataProps> = ({ data }) => {
             }}
         >
             <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="label" />
             <YAxis />
             <Tooltip />
             <Line type="monotone" dataKey="value" stroke="#8884d8" />
         </LineChart>
     );
 };
+
+export default Dashboard;
