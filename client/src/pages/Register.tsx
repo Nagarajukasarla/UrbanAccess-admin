@@ -84,8 +84,8 @@ const Register: React.FC = () => {
 
             // Convert to SignupRequest format
             const payload: SignupRequest = {
-                firstName: registrationData.firstname,
-                lastName: registrationData.lastname,
+                firstname: registrationData.firstname,
+                lastname: registrationData.lastname,
                 email: registrationData.email,
                 password: registrationData.password,
             };
@@ -120,7 +120,7 @@ const Register: React.FC = () => {
         try {
             message.loading({ content: "Verifying...", key: "verify" });
 
-            const response = await authService.verifyOtp(otp);
+            const response = await authService.verifyOtp(email, otp);
 
             if (response.code === APIResponse.SUCCESS) {
                 message.success({
@@ -315,7 +315,7 @@ const Register: React.FC = () => {
                         />
                     </Form.Item>
 
-                    <Form.Item>
+                    <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
                         <Button
                             style={{
                                 width: "50%",

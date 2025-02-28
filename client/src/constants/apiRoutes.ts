@@ -1,6 +1,6 @@
 const API_ROUTES = {
     AUTHENTICATE: "/authenticate",
-    LOGIN: "/auth/sign-in",
+    LOGIN: "/auth/login",
     REGISTER: "/auth/register",
     VERIFY_OTP: "/auth/verify-otp",
     LOGOUT: "/auth/logout",

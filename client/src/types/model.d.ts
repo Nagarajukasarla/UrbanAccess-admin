@@ -81,6 +81,11 @@ export type Application = {
     updatedBy?: number;
 };
 
+export type Application = {
+    id: number;
+
+}
+
 export type SchoolStudentApplication = Application & {
     board: string = "SBD" | "CBSC" | "ICSC" | "OTH";
     admissionId: string;

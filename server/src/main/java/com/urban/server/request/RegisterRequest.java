@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class RegisterRequest {
-    private String name;
+    private String firstname;
+    private String lastname;
     private String email;
     private String password;
 }

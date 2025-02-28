@@ -160,30 +160,32 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
                     </Text>
                 )}
             </Text>
-
-            <Button
-                type="primary"
-                onClick={handleVerify}
-                disabled={otp.join("").length !== 4}
-                style={{
-                    width: "50%",
-                    height: "auto",
-                    padding: "14px 12px",
-                    borderRadius: 50,
-                }}
-            >
-                <Text
+            <div style={{ textAlign: "center" }}>
+                <Button
+                    type="primary"
+                    onClick={handleVerify}
+                    disabled={otp.join("").length !== 4}
                     style={{
-                        letterSpacing: "1px",
-                        fontFamily: "Nunito Sans",
-                        fontSize: 17,
-                        color: "#fff",
-                        fontWeight: "bold",
+                        width: "50%",
+                        height: "auto",
+                        padding: "12px 12px",
+                        borderRadius: 50,
+                        textAlign: "center",
                     }}
                 >
-                    VERIFY
-                </Text>
-            </Button>
+                    <Text
+                        style={{
+                            letterSpacing: "1px",
+                            fontFamily: "Nunito Sans",
+                            fontSize: 17,
+                            color: "#fff",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        VERIFY
+                    </Text>
+                </Button>
+            </div>
         </Card>
     );
 };

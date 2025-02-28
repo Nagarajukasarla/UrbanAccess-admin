@@ -5,8 +5,8 @@ export type LiteUserRequest = {
 };
 
 export type SignupRequest = {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     email: string;
     password: string;
 };

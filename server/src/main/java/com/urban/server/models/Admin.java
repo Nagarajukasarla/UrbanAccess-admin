@@ -2,10 +2,7 @@ package com.urban.server.models;
 
 import com.urban.server.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +12,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "_admin")
@@ -25,8 +23,11 @@ public class Admin implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Remove sequence generator
     private Long id;
 
-    @Column(name = "name", length = 256, nullable = false)
-    private String name;
+    @Column(name = "firstname", length = 256, nullable = false)
+    private String firstname;
+
+    @Column(name = "lastname", length = 256, nullable = false)
+    private String lastname;
 
     @Column(name = "email", length = 256, nullable = false)
     private String email;
@@ -73,6 +74,22 @@ public class Admin implements UserDetails {
     }
 
     @Override
+    public String toString() {
+        return "Admin{" +
+                "divisionId=" + divisionId +
+                ", isEmailVerified=" + isEmailVerified +
+                ", role=" + role +
+                ", image='" + image + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
@@ -81,4 +98,5 @@ public class Admin implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

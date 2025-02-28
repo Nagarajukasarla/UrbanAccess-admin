@@ -32,8 +32,8 @@ class AuthService extends BaseService {
     // it should verify the otp and return the user details
     // redirect to login
 
-    async verifyOtp(otp: string): Promise<APIResponse<LiteAdmin>> {
-        return this.post<LiteAdmin>(API_ROUTES.VERIFY_OTP, { otp });
+    async verifyOtp(email: string, otp: string): Promise<APIResponse<LiteAdmin>> {
+        return this.post<LiteAdmin>(API_ROUTES.VERIFY_OTP, { email, otp });
     }
 
     // Create login api

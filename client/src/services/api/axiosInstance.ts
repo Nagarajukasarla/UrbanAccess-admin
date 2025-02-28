@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API_URL: string =  "http://localhost:8080/api/v1";
+const API_URL: string = "http://localhost:8080/api/v1";
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
-    timeout: 10000,
 });
 
 // Enable cookies to be sent with the request

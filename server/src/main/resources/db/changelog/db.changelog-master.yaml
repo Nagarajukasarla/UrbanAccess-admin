@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/001-initial-schema.sql
+  - include:
+      file: classpath:db/changelog/002-otp-schema.sql
+  - include:
+      file: classpath:db/changelog/003-verify-otp-procedure.sql

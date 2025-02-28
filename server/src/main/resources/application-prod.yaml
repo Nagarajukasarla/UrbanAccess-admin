@@ -1,0 +1,28 @@
+spring:
+  liquibase:
+    enabled: true
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  main:
+    lazy-initialization: false # Disable in production for performance after startup
+
+logging:
+  level:
+    root: ERROR
+    com.urban.server: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
