@@ -8,6 +8,7 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +24,14 @@ public class OTPVerificationProcedure {
     private final AdminRepository adminRepository;
     private static final Logger logger = Logger.getLogger(OTPVerificationProcedure.class.getName());
 
-    public ResponseEntity<AuthenticationResponse> verifyOtp(OTPVerificationRequest request) {
+    public ResponseEntity<?> verifyOtp(OTPVerificationRequest request) {
         try {
+            var adminOptional = adminRepository.findByEmail(request.email);
+            if (adminOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not exists");
+            }
+
+            var admin = adminOptional.get();
             // Create a stored procedure query
             StoredProcedureQuery query = entityManager.createStoredProcedureQuery("verify_otp");
 
@@ -44,12 +51,8 @@ public class OTPVerificationProcedure {
 
             if (isValid) {
                 // Mark email as verified
-                var admin = adminRepository.findByEmail(request.email)
-                        .orElseThrow(() -> new RuntimeException("Admin not found"));
-
                 admin.setIsEmailVerified(true);
                 adminRepository.save(admin);
-
                 return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.badRequest().build();

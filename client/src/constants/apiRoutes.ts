@@ -3,7 +3,7 @@ const API_ROUTES = {
     LOGIN: "/auth/login",
     REGISTER: "/auth/register",
     VERIFY_OTP: "/auth/verify-otp",
-    LOGOUT: "/auth/logout",
+    LOGOUT: "/logout",
     FORGOT_PASSWORD: "/auth/forgot-password",
     RESET_PASSWORD: "/auth/reset-password",
     FETCH_LITE_USER: "/lite-shop",

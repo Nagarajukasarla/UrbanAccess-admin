@@ -20,23 +20,18 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         return authService.register(request);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
         return authService.authenticate(request);
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<AuthenticationResponse> verifyOtp(
-            @RequestBody OTPVerificationRequest request
-    ) {
+    public ResponseEntity<?> verifyOtp(@RequestBody OTPVerificationRequest request) {
         return authService.verifyOtp(request);
     }
+
 }

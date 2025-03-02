@@ -44,7 +44,7 @@ public class AuthToken {
     @Column(nullable = false)
     private boolean revoked;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "admin_id",
             nullable = false,

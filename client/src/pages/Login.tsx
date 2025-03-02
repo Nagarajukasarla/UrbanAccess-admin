@@ -1,39 +1,93 @@
+import { Button, Card, Form, Input, Typography, message } from "antd";
 import React from "react";
-import { Card, Form, Input, Button, Typography } from "antd";
+import logo from "../assets/img/logo.jpg";
+import APIResponse from "../classes/APIResponse";
 import { authService } from "../services/api/authService";
-import { LoginRequest } from "../types/api";
 import { userService } from "../services/api/userService";
-const { Title, Text, Link } = Typography;
+import { LoginRequest } from "../types/api";
+import { useNavigate } from "react-router-dom";
+
+const { Text, Link } = Typography;
 
 const Login: React.FC = () => {
+    const [form] = Form.useForm();
+    const navigate = useNavigate();
+
     const onFinish = (values: { email: string; password: string }) => {
         console.log(`Values: ${values}`);
         handleLogin(values.email, values.password);
     };
 
     const handleLogin = (email: string, password: string) => {
-
         const loginRequest: LoginRequest = {
             email: email,
             password: password,
         };
 
-        authService.loginWithPassword(loginRequest)
+        authService
+            .loginWithPassword(loginRequest)
             .then((res) => {
-                if (res.code === 200) {
+                if (res.code === APIResponse.SUCCESS) {
                     userService.persistUser(res.data!);
+                    navigate("/", { replace: true });
+                } else if (res.code === APIResponse.NOT_FOUND) {
+                    message.error({
+                        content: (
+                            <Typography.Text style={{ fontWeight: 500 }}>
+                                User not found
+                            </Typography.Text>
+                        ),
+                        key: "login",
+                        duration: 3,
+                    });
+                    form.setFields([
+                        {
+                            name: "email",
+                            errors: ["Invalid email"],
+                        },
+                    ]);
+                } else if (res.code === APIResponse.UNAUTHORIZED) {
+                    form.setFields([
+                        {
+                            name: "password",
+                            errors: ["Invalid password"],
+                        },
+                    ]);
+                    message.error({
+                        content: (
+                            <Typography.Text style={{ fontWeight: 500 }}>
+                                Invalid Password
+                            </Typography.Text>
+                        ),
+                        key: "login",
+                        duration: 3,
+                    });
+                } else if (res.code === APIResponse.INTERNAL_SERVER_ERROR) {
+                    message.error({
+                        content: (
+                            <Typography.Text style={{ fontWeight: 500 }}>
+                                Internal server error
+                            </Typography.Text>
+                        ),
+                        key: "login",
+                        duration: 3,
+                    });
                 }
             })
             .catch((error) => {
-                console.log(error);
+                message.error({
+                    content: error.message,
+                    key: "login",
+                    duration: 3,
+                });
             });
     };
 
-    const authenticate = () => {
-        authService.authenticate().then((res) => {
-            console.log(res);
-        });
-    };
+    // const authenticate = () => {
+    //     authService.authenticate().then((res) => {
+    //         console.log(res);
+    //     });
+    // };
 
     return (
         <div
@@ -54,29 +108,35 @@ const Login: React.FC = () => {
                     width: 400,
                     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: 8,
+                    textAlign: "center",
                 }}
             >
-                <Title
-                    level={3}
+                <img
+                    src={logo}
                     style={{
-                        marginBottom: 8,
-                        textAlign: "left",
-                        fontWeight: "800",
+                        margin: "10px 0",
+                        width: 60,
+                        height: 60,
+                        borderRadius: 50,
+                        userSelect: "none",
                     }}
-                >
-                    Sign In
-                </Title>
+                />
                 <Text
                     style={{
                         color: "rgba(33, 33, 33, 0.85)",
                         display: "block",
                         marginBottom: 24,
-                        textAlign: "left",
+                        fontSize: 17,
                     }}
                 >
                     Stay updated on your business world
                 </Text>
-                <Form layout="vertical" onFinish={onFinish} autoComplete="off">
+                <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={onFinish}
+                    autoComplete="off"
+                >
                     <Form.Item
                         name="email"
                         rules={[
@@ -115,10 +175,15 @@ const Login: React.FC = () => {
                     </Form.Item>
 
                     <Button
-                        style={{ padding: "10px 12px", fontSize: 18 }}
                         type="primary"
                         htmlType="submit"
                         block
+                        style={{
+                            padding: "17px 12px",
+                            fontSize: 18,
+                            borderRadius: 50,
+                            width: "70%",
+                        }}
                     >
                         <Text
                             style={{
@@ -129,14 +194,14 @@ const Login: React.FC = () => {
                                 fontWeight: "bold",
                             }}
                         >
-                            SUBMIT
+                            Login
                         </Text>
                     </Button>
-                    <Button onClick={authenticate}>Authenticate</Button>
+                    {/* <Button onClick={authenticate}>Authenticate</Button> */}
                 </Form>
 
                 <div style={{ textAlign: "center", marginTop: 16 }}>
-                    <Text>New to BBA? </Text>
+                    <Text>New to Urban Access? </Text>
                     <Link href="/register">Register Account</Link>
                 </div>
             </Card>

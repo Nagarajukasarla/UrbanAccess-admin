@@ -1,3 +1,5 @@
+import { LiteAdmin } from "./model";
+
 export type LiteUserRequest = {
     email: string;
     password?: string;
@@ -16,3 +18,6 @@ export type LoginRequest = {
     password: string;
 };
 
+export type LoginResponse = LiteAdmin & {
+    token: string;
+}

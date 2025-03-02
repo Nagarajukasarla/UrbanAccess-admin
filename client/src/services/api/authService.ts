@@ -1,6 +1,6 @@
 import APIResponse from "../../classes/APIResponse";
 import API_ROUTES from "../../constants/apiRoutes";
-import { LoginRequest, SignupRequest } from "../../types/api";
+import { LoginRequest, SignupRequest, LoginResponse } from "../../types/api";
 import { LiteAdmin } from "../../types/model";
 import BaseService from "./baseService";
 
@@ -18,8 +18,8 @@ class AuthService extends BaseService {
      * @param payload The user's email address and password.
      * @returns A promise that resolves to an `APIResponse` containing a `LiteAdmin` object.
      */
-    async loginWithPassword(payload: LoginRequest): Promise<APIResponse<LiteAdmin>> {
-        return this.post<LiteAdmin>(API_ROUTES.LOGIN, payload);
+    async loginWithPassword(payload: LoginRequest): Promise<APIResponse<LoginResponse>> {
+        return this.post<LoginResponse>(API_ROUTES.LOGIN, payload);
     }
 
     // Create signup api
@@ -40,19 +40,16 @@ class AuthService extends BaseService {
     // login with email and password
     // Update local storage with user details
     // redirect to dashboard
-    async login(payload: LoginRequest): Promise<APIResponse<LiteAdmin>> {
-        return this.post<LiteAdmin>(API_ROUTES.LOGIN, payload);
+    async login(payload: LoginRequest): Promise<APIResponse<LoginResponse>> {
+        return this.post<LoginResponse>(API_ROUTES.LOGIN, payload);
     }
 
     // Create logout api
     // remove user details from local storage
     // redirect to login
 
-    async logout(): Promise<APIResponse<boolean>> {
-        // Clear local storage
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        return new APIResponse(APIResponse.SUCCESS, true);
+    async logout(userId: number): Promise<APIResponse<boolean>> {
+        return this.post<boolean>(API_ROUTES.LOGOUT, { userId });
     }
 
     // Create forgot password api

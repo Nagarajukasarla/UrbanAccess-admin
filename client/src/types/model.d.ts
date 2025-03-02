@@ -2,14 +2,16 @@ export type LiteAdmin = {
     id: number;
     isOwner: boolean;
     email: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     image?: string;
 };
 
 export type Admin = {
     id: number;
     isOwner: boolean;
-    name: string;
+    firstName: string;
+    lastName: string;
     image?: string;
     email: string;
     mobile?: string;

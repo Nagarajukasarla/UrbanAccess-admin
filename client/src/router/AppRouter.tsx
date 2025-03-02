@@ -21,16 +21,22 @@ const AppRoutes: React.FC = () => (
     <React.Suspense fallback={<Spinner />}>
         <Routes>
             {/* Auth routes - No Layout */}
-            <Route path="/login" element={
-                <RouteGuard isAuthPage={true}>
-                    <Login />
-                </RouteGuard>
-            } />
-            <Route path="/register" element={
-                <RouteGuard isAuthPage={true}>
-                    <Register />
-                </RouteGuard>
-            } />
+            <Route
+                path="/login"
+                element={
+                    <RouteGuard isAuthPage={true}>
+                        <Login />
+                    </RouteGuard>
+                }
+            />
+            <Route
+                path="/register"
+                element={
+                    <RouteGuard isAuthPage={true}>
+                        <Register />
+                    </RouteGuard>
+                }
+            />
 
             {/* App Routes - With AppLayout */}
             <Route
@@ -43,10 +49,10 @@ const AppRoutes: React.FC = () => (
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/app">
                     <Route path="dashboard" element={<Dashboard />} />
-                    {/* <Route
+                    <Route
                         path="user-management"
                         element={<UserManagement />}
-                    /> */}
+                    />
                     <Route path="applications" element={<Applications />} />
                     <Route
                         path="applications/:applicationId"

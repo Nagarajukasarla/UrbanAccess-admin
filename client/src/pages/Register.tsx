@@ -12,7 +12,9 @@ import OTPVerification from "../components/feature/OTPVerification";
 import APIResponse from "../classes/APIResponse";
 import { SignupRequest } from "../types/api";
 import { authService } from "../services/api/authService";
-const { Title, Text, Link } = Typography;
+import logo from "../assets/img/logo.jpg";
+
+const { Text, Link } = Typography;
 
 // Define interface for form values
 interface RegisterFormValues {
@@ -28,6 +30,7 @@ const Register: React.FC = () => {
     const [form] = Form.useForm();
     const [showOTP, setShowOTP] = useState(false);
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     // Password validation rules
     const validatePassword = (_: any, value: string) => {
@@ -77,12 +80,16 @@ const Register: React.FC = () => {
     };
 
     const onFinish = async (values: RegisterFormValues) => {
+        const loadingKey = "register"; // Unique key for the loading message
         try {
-            message.loading({ content: "Registering...", key: "register" });
+            setLoading(true);
+            message.loading({
+                content: "Registering...",
+                key: loadingKey,
+                duration: 0,
+            });
 
             const { confirmPassword, ...registrationData } = values;
-
-            // Convert to SignupRequest format
             const payload: SignupRequest = {
                 firstname: registrationData.firstname,
                 lastname: registrationData.lastname,
@@ -94,25 +101,31 @@ const Register: React.FC = () => {
 
             if (response.code === APIResponse.SUCCESS) {
                 message.success({
-                    content: "Please verify your email!",
-                    key: "register",
+                    content: "OTP sent successfully!",
+                    key: loadingKey,
                     duration: 2,
                 });
+
                 setShowOTP(true);
                 setEmail(registrationData.email);
-            } else {
-                throw new Error(response.description);
+            } else if (response.code === APIResponse.CONFLICT) {
+                message.error({
+                    content: "User already exists. Please login instead.",
+                    key: loadingKey,
+                    duration: 3,
+                });
             }
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             message.error({
                 content:
                     error instanceof Error
                         ? error.message
                         : "Registration failed. Please try again.",
-                key: "register",
+                key: loadingKey,
                 duration: 2,
             });
-            console.error("Registration error:", error);
         }
     };
 
@@ -195,29 +208,30 @@ const Register: React.FC = () => {
             }}
         >
             <Card
-                styles={{ body: { padding: "10px 32px 20px 32px" } }}
+                styles={{ body: { padding: "20px 32px 20px 32px" } }}
                 style={{
                     width: 400,
                     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: 8,
+                    textAlign: "center",
                 }}
             >
-                <Title
-                    level={3}
+                <img
+                    src={logo}
                     style={{
                         marginBottom: 8,
-                        textAlign: "left",
-                        fontWeight: "800",
+                        width: 60,
+                        height: 60,
+                        borderRadius: 50,
+                        userSelect: "none",
                     }}
-                >
-                    Sign Up
-                </Title>
+                />
                 <Text
                     style={{
                         color: "rgba(33, 33, 33, 0.85)",
                         display: "block",
                         marginBottom: 24,
-                        textAlign: "left",
+                        fontSize: 17,
                     }}
                 >
                     Stay updated on your business world
@@ -318,24 +332,25 @@ const Register: React.FC = () => {
                     <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
                         <Button
                             style={{
-                                width: "50%",
+                                width: "70%",
                                 padding: "18px 12px",
                                 borderRadius: "50px",
                             }}
                             type="primary"
                             htmlType="submit"
                             block
+                            disabled={loading}
                         >
                             <Text
                                 style={{
                                     letterSpacing: "1px",
                                     fontFamily: "Nunito Sans",
-                                    fontSize: 16,
+                                    fontSize: 17,
                                     color: "#fff",
                                     fontWeight: "bold",
                                 }}
                             >
-                                Submit
+                                Signup
                             </Text>
                         </Button>
                     </Form.Item>
