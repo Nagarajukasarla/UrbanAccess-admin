@@ -12,6 +12,10 @@ const API_ROUTES = {
     FETCH_DASHBOARD: "/dashboard-stats",
     FETCH_CUSTOMERS: "/customers",
     FETCH_STOCKS: "/stocks",
+    DASHBOARD_STATS: "/dashboard/stats",
+    DASHBOARD_PASS_ANALYTICS: "/dashboard/pass-analytics",
+    DASHBOARD_DIVISION_ANALYTICS: "/dashboard/division-analytics",
+    DASHBOARD_REVENUE: "/dashboard/revenue",
 };
 
 export default API_ROUTES;
