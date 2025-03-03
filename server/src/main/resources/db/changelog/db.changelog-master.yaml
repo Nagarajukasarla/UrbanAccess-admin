@@ -5,3 +5,7 @@ databaseChangeLog:
       file: classpath:db/changelog/002-otp-schema.sql
   - include:
       file: classpath:db/changelog/003-verify-otp-procedure.sql
+  - include:
+      file: classpath:db/changelog/004-indexes-on-tables.sql
+  - include:
+      file: classpath:db/changelog/005-native-user-pass-tables.sql
