@@ -14,8 +14,6 @@ export interface ChartDataProps {
     data: ChartData[];
 }
 
-import { CSSProperties, ReactNode } from 'react';
-
 export interface DashboardCardProps {
     icon: ReactNode;
     title: string;

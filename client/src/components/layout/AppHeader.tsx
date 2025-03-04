@@ -27,7 +27,7 @@ const AppHeader: React.FC = () => {
                 {showProfile && (
                     <ModelWrapper
                         width={300}
-                        height={400}
+                        height={350}
                         anchorEl={profileIconRef.current}
                         position="bottom-left"
                         onClose={() => setShowProfile(false)}

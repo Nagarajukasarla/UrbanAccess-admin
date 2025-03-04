@@ -87,12 +87,14 @@ const MiniProfileView: React.FC = () => {
                     <EditOutlined />
                 </div>
             </div>
-            <Typography.Text className="profile-name">
-                {user?.firstName || ""}
-            </Typography.Text>
-            <Card className="card card-1"></Card>
-            <Card className="card card-2"></Card>
-            <Card className="card card-3"></Card>
+            <Card className="card card-1" style={{ textAlign: "center" }}>
+                <Typography.Text ellipsis>
+                    {user?.firstName || ""} {user?.lastName || ""}
+                </Typography.Text>
+            </Card>
+            <Card className="card card-2">
+                <Typography.Text ellipsis>{user?.email || ""}</Typography.Text>
+            </Card>
             <Button className="logout-button" onClick={logout}>
                 Logout
                 <LogoutOutlined />

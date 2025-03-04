@@ -1,3 +1,5 @@
+import { ChartData } from "../types/component";
+import { DashboardStats, DivisionAnalytics, PassTypeAnalytics, RevenueAnalytics, WeeklyRevenueAnalytics } from "../types/local-data";
 import { Application, CollegeStudentApplication, Division, Institute } from "../types/model";
 export const institutes: Institute[] = [
     { id: 1, code: "JNTU", name: "Jawaharlal Nehru Technological University", email: "info@jntu.ac.in", divisionId: 101, createdAt: new Date(), isSchool: false },
@@ -60,6 +62,43 @@ export const divisions: Division[] = [
     { id: 30, code: "SHA030", name: "Shamshabad", numberOfCollege: 8, numberOfSchools: 14 },
 ];
 
+// Initial data for dashboard stats
+export const dashboardStatsData: DashboardStats = {
+    pendingApplications: 17,
+    approvedApplications: 0,
+    rejectedApplications: 0,
+    monthlyApplications: 0
+};
+
+export const passTypeAnalyticsData: ChartData[] = [
+    { label: "Annual Pass", value: 2 },
+    { label: "Monthly Pass", value: 8 },
+    { label: "Weekly Pass", value: 4 },
+    { label: "Quarterly Pass", value: 3 }
+];
+
+export const divisionAnalyticsData: ChartData[] = [
+    { label: "Miyapur", value: 2 },
+    { label: "Begumpet", value: 1 },
+    { label: "Abids", value: 3 },
+    { label: "Jubilee ", value: 2 },
+    { label: "Madhapur", value: 4 },
+    { label: "Hitech", value: 1 },
+    { label: "Suchitra", value: 3 },
+    { label: "Kondapur", value: 2 },
+];
+
+export const weeklyRevenueAnalyticsData: ChartData[] = [
+    { label: "Sunday", value: 1500 },
+    { label: "Monday", value: 300 },
+    { label: "Tuesday", value: 1290 },
+    { label: "Wednesday", value: 750 },
+    { label: "Thursday", value: 400 },
+    { label: "Friday", value: 870 },
+    { label: "Saturday", value: 880 }
+];
+
+// Initial data for applications
 export const applications: Application[] = [
     {
         id: 1001,

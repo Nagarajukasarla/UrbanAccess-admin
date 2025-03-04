@@ -3,6 +3,8 @@ import { Input, Space, Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import "../assets/css/reports.css";
+import { getNonPendingApplicationsFromLocalStorage } from "../services/local-storage/localStorageService";
+import { Application, ApplicationStatus } from "../types/model";
 
 interface Report {
     id: number;
@@ -11,50 +13,132 @@ interface Report {
     email: string;
     mobile: string;
     divisionId: number;
-    passId: number;
-    status: string;
+    passId?: number;
+    status: ApplicationStatus;
 }
-
-const reportData: Report[] = [
-    { id: 1, firstName: "John", lastName: "Doe", email: "john@example.com", mobile: "1234567890", divisionId: 101, passId: 5001, status: "Accepted" },
-    { id: 2, firstName: "Jane", lastName: "Smith", email: "jane@example.com", mobile: "0987654321", divisionId: 102, passId: 5002, status: "Rejected" },
-    { id: 3, firstName: "Alice", lastName: "Johnson", email: "alice@example.com", mobile: "1122334455", divisionId: 103, passId: 5003, status: "Accepted" },
-    { id: 4, firstName: "Bob", lastName: "Brown", email: "bob@example.com", mobile: "5566778899", divisionId: 104, passId: 5004, status: "Rejected" },
-];
 
 const ReportsPage: React.FC = () => {
     const [hoveredRowKey, setHoveredRowKey] = useState<number | null>(null);
-    const [searchText, setSearchText] = useState<string>("");
-    const [filteredData, setFilteredData] = useState<Report[]>(reportData);
+    const [reports, setReports] = useState<Report[]>([]);
+    const [searchText, setSearchText] = useState("");
+    const [filteredData, setFilteredData] = useState<Report[]>([]);
 
     useEffect(() => {
         document.title = "Reports";
+        loadData();
     }, []);
 
     useEffect(() => {
-        const filtered = reportData.filter(({ firstName, lastName, email, mobile }) =>
-            [firstName, lastName, email, mobile].some(field =>
-                field.toLowerCase().includes(searchText.toLowerCase())
-            )
+        if (searchText === "") {
+            setFilteredData(reports);
+        } else {
+            const filtered = reports.filter(
+                ({ firstName, lastName, email, mobile }) =>
+                    [firstName, lastName, email, mobile].some((field) =>
+                        field.toLowerCase().includes(searchText.toLowerCase())
+                    )
+            );
+            setFilteredData(filtered);
+        }
+    }, [searchText, reports]);
+
+    const loadData = () => {
+        const nonPendingApplications: Application[] =
+            getNonPendingApplicationsFromLocalStorage();
+        const newReports: Report[] = nonPendingApplications.map(
+            (application) => ({
+                id: application.id,
+                firstName: application.personalInfo.firstName,
+                lastName: application.personalInfo.lastName,
+                email: application.personalInfo.email || "",
+                mobile: application.mobile,
+                divisionId: application.divisionId,
+                passId: application.passId,
+                status: application.status || ("Pending" as ApplicationStatus),
+            })
         );
-        setFilteredData(filtered);
-    }, [searchText]);
+        setReports(newReports);
+        setFilteredData(newReports);
+    };
 
     const columns: ColumnsType<Report> = [
-        { title: "ID", dataIndex: "id", key: "id" },
-        { title: "First Name", dataIndex: "firstName", key: "firstName" },
-        { title: "Last Name", dataIndex: "lastName", key: "lastName" },
-        { title: "Email", dataIndex: "email", key: "email" },
-        { title: "Mobile", dataIndex: "mobile", key: "mobile" },
-        { title: "Division ID", dataIndex: "divisionId", key: "divisionId" },
-        { title: "Pass ID", dataIndex: "passId", key: "passId" },
+        { 
+            title: "ID", 
+            dataIndex: "id", 
+            key: "id",
+            render: (id: number) => {
+                return <Typography.Text>{id}</Typography.Text>
+            }
+        },
+        { 
+            title: "First Name", 
+            dataIndex: "firstName", 
+            key: "firstName",
+            render: (firstName: string) => {
+                return <Typography.Text>{firstName}</Typography.Text>
+            }
+        },
+        { 
+            title: "Last Name", 
+            dataIndex: "lastName", 
+            key: "lastName",
+            render: (lastName: string) => {
+                return <Typography.Text>{lastName}</Typography.Text>
+            }
+        },
+        { 
+            title: "Email", 
+            dataIndex: "email", 
+            key: "email",
+            render: (email: string) => {
+                return <Typography.Text>{email}</Typography.Text>
+            }
+        },
+        { 
+            title: "Mobile", 
+            dataIndex: "mobile", 
+            key: "mobile",
+            render: (mobile: string) => {
+                return <Typography.Text>{mobile}</Typography.Text>
+            }
+        },
+        { 
+            title: "Division ID", 
+            dataIndex: "divisionId", 
+            key: "divisionId",
+            render: (divisionId: number) => {
+                return <Typography.Text>{divisionId}</Typography.Text>
+            }
+        },
+        { 
+            title: "Pass ID", 
+            dataIndex: "passId", 
+            key: "passId",
+            render: (passId: number) => {
+                return <Typography.Text>{passId}</Typography.Text>
+            }
+        },
         {
             title: "Status",
             dataIndex: "status",
             key: "status",
-            render: (status: string) => (
-                <Tag className={status === "Accepted" ? "ant-tag-green" : "ant-tag-red"}>{status}</Tag>
-            ),
+            render: (status: ApplicationStatus) => {
+                let tagColor = "";
+                switch (status) {
+                    case "Approved":
+                        tagColor = "ant-tag-green";
+                        break;
+                    case "Pending":
+                        tagColor = "ant-tag-yellow";
+                        break;
+                    case "Rejected":
+                        tagColor = "ant-tag-red";
+                        break;
+                    default:
+                        tagColor = "ant-tag-default";
+                }
+                return <Tag className={tagColor}>{status}</Tag>;
+            },
         },
     ];
 
@@ -74,7 +158,10 @@ const ReportsPage: React.FC = () => {
             </div>
             <Table<Report>
                 columns={columns}
-                dataSource={filteredData.map(report => ({ ...report, key: report.id }))}
+                dataSource={filteredData.map((report) => ({
+                    ...report,
+                    key: report.id,
+                }))}
                 pagination={{ pageSize: 10 }}
                 className="reports-table"
                 onRow={(record) => ({

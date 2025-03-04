@@ -1,22 +1,10 @@
 import {
     CheckCircleOutlined,
     CloseCircleOutlined,
-    DownOutlined,
     LineChartOutlined,
-    ShoppingCartOutlined
+    ShoppingCartOutlined,
 } from "@ant-design/icons";
-import {
-    Card,
-    Col,
-    Row,
-    Select,
-    Space,
-    Statistic,
-    Typography,
-    message,
-    Spin
-} from "antd";
-import { DefaultOptionType } from "antd/es/select";
+import { Card, Col, message, Row, Space, Spin, Statistic } from "antd";
 import React, { useEffect, useState } from "react";
 import {
     Bar,
@@ -31,117 +19,55 @@ import {
     YAxis,
 } from "recharts";
 import "../assets/css/dashboard.css";
-import monthImg from "../assets/img/monthly.png";
+import {
+    divisionAnalyticsData,
+    passTypeAnalyticsData,
+    weeklyRevenueAnalyticsData,
+} from "../data/components";
 import {
     ChartData,
     ChartDataProps,
     DashboardCardProps,
 } from "../types/component";
-import { dashboardService } from "../services/api/dashboardService";
-import APIResponse from "../classes/APIResponse";
+import { DashboardStats } from "../types/local-data";
+import { getApplicationStatisticsFromLocalStorage } from "../services/local-storage/localStorageService";
 
 const Dashboard: React.FC = () => {
-    const items: DefaultOptionType[] = [
-        {
-            value: "1",
-            label: (
-                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <img src={monthImg} width={20} height={20} alt="Monthly" />
-                    <Typography.Text>Monthly Revenue</Typography.Text>
-                </span>
-            ),
-        },
-        {
-            value: "2",
-            label: (
-                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <img src={monthImg} width={20} height={20} alt="Yearly" />
-                    <Typography.Text>Yearly Revenue</Typography.Text>
-                </span>
-            ),
-        },
-    ];
-
     // State management
-    const [selectedPeriod, setSelectedPeriod] = useState<string>(items[0]?.value as string);
-    const [applications, setApplications] = useState<number>(0);
-    const [accepted, setAccepted] = useState<number>(0);
-    const [rejected, setRejected] = useState<number>(0);
-    const [monthly, setMonthly] = useState<number>(0);
+
+    const [dashboardStats, setDashboardStats] = useState<DashboardStats>();
     const [passTypeAnalytics, setPassTypeAnalytics] = useState<ChartData[]>([]);
     const [divisionAnalytics, setDivisionAnalytics] = useState<ChartData[]>([]);
-    const [revenueAnalytics, setRevenueAnalytics] = useState<ChartData[]>([]);
+    const [weeklyRevenueAnalytics, setWeeklyRevenueAnalytics] = useState<
+        ChartData[]
+    >([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const loadData = async () => {
         try {
             setLoading(true);
-            message.loading({ content: "Loading dashboard data...", key: "dashboard" });
+            message.loading({
+                content: "Loading dashboard data...",
+                key: "dashboard",
+            });
 
-            const [statsResponse, passResponse, divisionResponse] = await Promise.all([
-                dashboardService.getDashboardStats(),
-                dashboardService.getPassTypeAnalytics(),
-                dashboardService.getDivisionAnalytics()
-            ]);
+            setDashboardStats(getApplicationStatisticsFromLocalStorage());
+            setPassTypeAnalytics(passTypeAnalyticsData);
+            setDivisionAnalytics(divisionAnalyticsData);
+            setWeeklyRevenueAnalytics(weeklyRevenueAnalyticsData);
 
-            if (statsResponse.code === APIResponse.SUCCESS) {
-                const stats = statsResponse.data;
-                setApplications(stats.totalApplications);
-                setAccepted(stats.acceptedApplications);
-                setRejected(stats.rejectedApplications);
-                setMonthly(stats.monthlyApplications);
-            }
-
-            if (passResponse.code === APIResponse.SUCCESS) {
-                setPassTypeAnalytics(passResponse.data);
-            }
-
-            if (divisionResponse.code === APIResponse.SUCCESS) {
-                setDivisionAnalytics(divisionResponse.data);
-            }
-
-            // Load initial revenue data
-            await handlePeriodChange(selectedPeriod);
-
-            message.success({ 
-                content: "Dashboard loaded successfully!", 
-                key: "dashboard" 
+            message.success({
+                content: "Dashboard loaded successfully!",
+                key: "dashboard",
             });
         } catch (error) {
             message.error({
                 content: "Failed to load dashboard data. Please try again.",
-                key: "dashboard"
+                key: "dashboard",
             });
             console.error("Dashboard loading error:", error);
         } finally {
             setLoading(false);
-        }
-    };
-
-    const handlePeriodChange = async (value: string) => {
-        try {
-            setSelectedPeriod(value);
-            message.loading({ content: "Loading revenue data...", key: "revenue" });
-
-            const response = await dashboardService.getRevenueAnalytics({
-                period: value === "1" ? "monthly" : "yearly"
-            });
-
-            if (response.code === APIResponse.SUCCESS) {
-                setRevenueAnalytics(response.data);
-                message.success({ 
-                    content: "Revenue data updated!", 
-                    key: "revenue" 
-                });
-            } else {
-                throw new Error(response.description);
-            }
-        } catch (error) {
-            message.error({
-                content: "Failed to load revenue data. Please try again.",
-                key: "revenue"
-            });
-            console.error("Revenue loading error:", error);
         }
     };
 
@@ -161,7 +87,10 @@ const Dashboard: React.FC = () => {
                                     <ShoppingCartOutlined className="card-icon orders-card-icon" />
                                 }
                                 title={"Applications"}
-                                value={applications.toLocaleString()}
+                                value={
+                                    dashboardStats?.totalApplications.toLocaleString() ||
+                                    "0"
+                                }
                                 style={{ marginRight: "44px" }}
                             />
                             <DashboardCard
@@ -169,7 +98,10 @@ const Dashboard: React.FC = () => {
                                     <CheckCircleOutlined className="card-icon bills-closed-card-icon" />
                                 }
                                 title={"Accepted"}
-                                value={accepted.toLocaleString()}
+                                value={
+                                    dashboardStats?.approvedApplications.toLocaleString() ||
+                                    "0"
+                                }
                                 style={{ marginRight: "44px" }}
                             />
                             <DashboardCard
@@ -177,7 +109,10 @@ const Dashboard: React.FC = () => {
                                     <CloseCircleOutlined className="card-icon today-revenue-card-icon" />
                                 }
                                 title={"Rejected"}
-                                value={rejected.toLocaleString()}
+                                value={
+                                    dashboardStats?.rejectedApplications.toLocaleString() ||
+                                    "0"
+                                }
                                 style={{ marginRight: "44px" }}
                             />
                             <DashboardCard
@@ -185,39 +120,38 @@ const Dashboard: React.FC = () => {
                                     <LineChartOutlined className="card-icon month-revenue-card-icon" />
                                 }
                                 title={"This Month"}
-                                value={monthly.toLocaleString()}
+                                value={
+                                    dashboardStats?.monthlyRevenue.toLocaleString() ||
+                                    "0"
+                                }
                             />
                         </Row>
+
                         <Row>
                             <Space direction="horizontal" size={"large"}>
                                 <Card>
                                     <div className="pieChartHeader">
                                         <p>Pass Type Analysis</p>
                                     </div>
-                                    <DashboardPieChart data={passTypeAnalytics} />
+                                    <DashboardPieChart
+                                        data={passTypeAnalytics}
+                                    />
                                 </Card>
                                 <Card>
                                     <div className="barChartHeader">
-                                        <p>Top 10 Divisions</p>
+                                        <p>Divisions</p>
                                     </div>
-                                    <DashboardBarChart data={divisionAnalytics} />
+                                    <DashboardBarChart
+                                        data={divisionAnalytics}
+                                    />
                                 </Card>
                             </Space>
                         </Row>
                         <Row>
                             <Card>
-                                <div className="revenue-chart-card">
-                                    <Select
-                                        style={{ width: 200, marginBottom: 20 }}
-                                        value={selectedPeriod}
-                                        onChange={handlePeriodChange}
-                                        options={items}
-                                        suffixIcon={<DownOutlined />}
-                                    />
-                                    <RangedRevenueLinedChart
-                                        data={revenueAnalytics}
-                                    />
-                                </div>
+                                <RangedRevenueLinedChart
+                                    data={weeklyRevenueAnalytics}
+                                />
                             </Card>
                         </Row>
                     </Space>

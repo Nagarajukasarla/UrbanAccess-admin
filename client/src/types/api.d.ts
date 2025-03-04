@@ -24,7 +24,6 @@ export interface DashboardStats {
     monthlyApplications: number;
 }
 
-
 export interface ChartData {
     label: string;
     value: number;

@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Space, Table, message } from "antd";
+import { Button, Input, Modal, Space, Table, Typography, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import React, { useState } from "react";
 import "../assets/css/divisions.css";
@@ -38,23 +38,29 @@ const Divisions: React.FC = () => {
             title: "Code",
             dataIndex: "code",
             key: "code",
+            render: (code: string) => <Typography.Text>{code}</Typography.Text>,
         },
         {
             title: "Name",
             dataIndex: "name",
             key: "name",
+            render: (name: string) => <Typography.Text>{name}</Typography.Text>,
         },
         {
             title: "Number of Colleges",
             dataIndex: "numberOfCollege",
             key: "numberOfCollege",
-            render: (count) => count ?? "-",
+            render: (count: number) => (
+                <Typography.Text>{count}</Typography.Text>
+            ),
         },
         {
             title: "Number of Schools",
             dataIndex: "numberOfSchools",
             key: "numberOfSchools",
-            render: (count) => count ?? "-",
+            render: (count: number) => (
+                <Typography.Text>{count}</Typography.Text>
+            ),
         },
     ];
 
@@ -71,9 +77,9 @@ const Divisions: React.FC = () => {
                     <Button
                         type="primary"
                         onClick={showModal}
-                        style={{ marginBottom: 16 }}
+                        style={{ padding: "18px"}}
                     >
-                        Add Division
+                        <Typography.Text>Add Division</Typography.Text>
                     </Button>
                 </Space>
             </div>
