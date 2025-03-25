@@ -80,7 +80,7 @@ const Register: React.FC = () => {
     };
 
     const onFinish = async (values: RegisterFormValues) => {
-        const loadingKey = "register"; // Unique key for the loading message
+        const loadingKey = "register";
         try {
             setLoading(true);
             message.loading({

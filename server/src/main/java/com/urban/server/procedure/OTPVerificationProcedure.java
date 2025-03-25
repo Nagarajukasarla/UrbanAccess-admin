@@ -2,7 +2,6 @@ package com.urban.server.procedure;
 
 import com.urban.server.repository.AdminRepository;
 import com.urban.server.request.OTPVerificationRequest;
-import com.urban.server.response.AuthenticationResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;

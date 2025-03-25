@@ -23,39 +23,53 @@ const SideBar: React.FC = () => {
     const items = [
         {
             key: "/app/dashboard",
-            label: <Typography.Text className="menu-item-text">Dashboard</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Dashboard
+                </Typography.Text>
+            ),
             icon: <AppstoreAddOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/dashboard"),
         },
         {
             key: "/app/applications",
-            label: <Typography.Text className="menu-item-text">Applications</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Applications
+                </Typography.Text>
+            ),
             icon: <ContainerOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/applications"),
         },
         {
             key: "/app/divisions",
-            label: <Typography.Text className="menu-item-text">Divisions</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Divisions
+                </Typography.Text>
+            ),
             icon: <DeploymentUnitOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/divisions"),
         },
         {
             key: "/app/reports",
-            label: <Typography.Text className="menu-item-text">Reports</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Reports
+                </Typography.Text>
+            ),
             icon: <SlidersOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/reports"),
         },
         {
             key: "/app/settings",
-            label: <Typography.Text className="menu-item-text">Settings</Typography.Text>,
+            label: (
+                <Typography.Text className="menu-item-text">
+                    Settings
+                </Typography.Text>
+            ),
             icon: <SettingOutlined className="menu-item-icon" />,
             onClick: () => navigateTo("/app/settings"),
-        },
-        {
-            key: "/app/about",
-            label: <Typography.Text className="menu-item-text">About</Typography.Text>,
-            icon: <InfoCircleOutlined className="menu-item-icon" />,
-            onClick: () => navigateTo("/app/about"),
         },
     ];
 

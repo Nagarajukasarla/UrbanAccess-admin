@@ -16,6 +16,16 @@ body {
     min-width: 250px !important;
 }
 
+/* Header */
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    height: 64px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Sider */
 .sider {
     position: fixed;
@@ -26,7 +36,14 @@ body {
     border-right: 1px solid #e0e0e0;
     box-shadow: 2px 0 6px rgba(64, 64, 64, 0.1);
     overflow-y: auto;
-    /* border: 1px solid #085111; */
+}
+
+/* Sider ->  Menu */
+.ant-menu-item {
+    display: flex;
+    padding: 24px 20px;
+    margin-bottom: 15px;
+    color: #031d44 !important;
 }
 
 .content {
@@ -38,31 +55,12 @@ body {
     background-color: #f5f5f5;
     min-height: calc(100vh - 64px);
     overflow-y: auto;
-    /* border: 1px solid red; */
-}
-
-/* Sider ->  Menu */
-.ant-menu-item {
-    display: flex;
-    padding: 24px 20px;
-    margin-bottom: 15px;
-    color: #031d44 !important;
 }
 
 .ant-menu-item-selected {
     color: #044fb9 !important;
     background-color: #c2d6e6 !important;
     font-weight: 600;
-}
-
-/* Header */
-.header {
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    height: 64px;
-    padding: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 :where(.css-dev-only-do-not-override-cdzvx5).ant-layout-header {

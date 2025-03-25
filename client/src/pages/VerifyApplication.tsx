@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { ApplicantProfile } from "../components/feature/ApplicantProfile";
 import { CollegeStudentApplication } from "../types/model";
 import { collegeStudentApplications } from "../data/components";
-import { Button, Col, Modal, Row, Typography, Result, Spin } from "antd";
+import { Button, Col, Modal, Row, Typography, Result, Spin, Input } from "antd";
 import ApplicantDetailsView from "../components/feature/ApplicantDetailsView";
 import Success from "../components/common/Success";
 import Rejected from "../components/common/Rejected";
 import { updateApplicationStatusInLocalStorage } from "../services/local-storage/localStorageService";
 import { useNavigate } from "react-router-dom";
 
+const { TextArea } = Input;
+
 export const VerifyApplication: React.FC = () => {
     const [data, setData] = useState<CollegeStudentApplication>();
     const [isSuccess, setIsSuccess] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [rejectReason, setRejectReason] = useState("");
 
     const navigate = useNavigate();
 
@@ -33,23 +36,24 @@ export const VerifyApplication: React.FC = () => {
 
     useEffect(() => {
         loadApplicationData(Number(document.location.pathname.split("/")[3]));
-        console.log(data);
     }, []);
 
     const handleApprove = () => {
-        if (isRejected) {
-            setIsRejected(false);
-        }
+        if (isRejected) setIsRejected(false);
         setIsSuccess(true);
         updateApplicationStatusInLocalStorage(data?.id!, "Approved");
     };
 
     const handleReject = () => {
-        if (isSuccess) {
-            setIsSuccess(false);
-        }
-        updateApplicationStatusInLocalStorage(data?.id!, "Rejected");
+        if (isSuccess) setIsSuccess(false);
         setIsRejected(true);
+    };
+
+    const handleRejectConfirm = () => {
+        console.log("Rejected reason:", rejectReason);
+        updateApplicationStatusInLocalStorage(data?.id!, "Rejected");
+        setIsRejected(false);
+        setRejectReason("");
     };
 
     if (isLoading) {
@@ -96,12 +100,7 @@ export const VerifyApplication: React.FC = () => {
         <Col>
             <Row>
                 <Col span={12}>
-                    <Typography.Title
-                        level={3}
-                        style={{
-                            marginLeft: 20,
-                        }}
-                    >
+                    <Typography.Title level={3} style={{ marginLeft: 20 }}>
                         Submitted Application
                     </Typography.Title>
                     <ApplicantDetailsView application={data} />
@@ -151,9 +150,18 @@ export const VerifyApplication: React.FC = () => {
             <Modal
                 open={isRejected}
                 onCancel={() => setIsRejected(false)}
-                onOk={() => setIsRejected(false)}
+                onOk={handleRejectConfirm}
             >
                 <Rejected />
+                <Typography.Title level={5} style={{ marginTop: 20 }}>
+                    Please provide the reason for rejection:
+                </Typography.Title>
+                <TextArea
+                    rows={4}
+                    value={rejectReason}
+                    onChange={(e) => setRejectReason(e.target.value)}
+                    placeholder="Enter reason here..."
+                />
             </Modal>
         </Col>
     );
