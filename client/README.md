@@ -1,50 +1,128 @@
-# React + TypeScript + Vite
+# UrbanAccess Admin Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="src/assets/img/screenshots/home.jpeg" alt="UrbanAccess Admin Dashboard" width="800">
+</div>
 
-Currently, two official plugins are available:
+<div align="center">
+  <h3>Frontend</h3>
+  <a href="https://reactjs.org/">
+    <img src="https://img.shields.io/badge/React-18.3.1-blue.svg?style=for-the-badge&logo=react" alt="React">
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/TypeScript-5.6.2-blue.svg?style=for-the-badge&logo=typescript" alt="TypeScript">
+  </a>
+  <a href="https://vitejs.dev/">
+    <img src="https://img.shields.io/badge/Vite-6.0.5-purple.svg?style=for-the-badge&logo=vite" alt="Vite">
+  </a>
+  <a href="https://ant.design/">
+    <img src="https://img.shields.io/badge/Ant_Design-5.23.3-0170FE.svg?style=for-the-badge&logo=ant-design" alt="Ant Design">
+  </a>
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<div align="center">
+  <h3>Backend</h3>
+  <a href="https://spring.io/projects/spring-boot">
+    <img src="https://img.shields.io/badge/Spring_Boot-2.7.0-6DB33F.svg?style=for-the-badge&logo=spring-boot" alt="Spring Boot">
+  </a>
+  <a href="https://www.java.com/">
+    <img src="https://img.shields.io/badge/Java-17-ED8B00.svg?style=for-the-badge&logo=java" alt="Java">
+  </a>
+  <a href="https://www.postgresql.org/">
+    <img src="https://img.shields.io/badge/PostgreSQL-14.0-336791.svg?style=for-the-badge&logo=postgresql" alt="PostgreSQL">
+  </a>
+</div>
 
-## Expanding the ESLint configuration
+## 🏙️ About The Project
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+UrbanAccess Admin Portal is a comprehensive administration system for managing urban access passes for students in educational institutions. The platform enables administrators to verify applications, manage users, track divisions, and generate reports for urban transportation access passes.
 
-- Configure the top-level `parserOptions` property like this:
+## ✨ Live Demo
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+[![UrbanAccess Admin](src/assets/img/screenshots/signup.jpegg)](https://your-live-link-here.com)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+[![Live Demo](https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify)](https://your-live-link-here.com)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+<div align="center">
+  <a href="https://your-live-link-here.com" target="_blank">
+    <img src="src/assets/screenshots/verify-application.png" alt="Project Preview" width="800"/>
+  </a>
+</div>
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 📸 Screenshots
+
+<div align="center">
+  <img src="src/assets/screenshots/dashboard.png" alt="Dashboard" width="400" style="margin-right: 10px;">
+  <img src="src/assets/screenshots/applications.png" alt="Applications" width="400">
+</div>
+
+<div align="center" style="margin-top: 20px;">
+  <img src="src/assets/screenshots/verify-application.png" alt="Verify Application" width="400" style="margin-right: 10px;">
+  <img src="src/assets/screenshots/user-management.png" alt="User Management" width="400">
+</div>
+
+## 🚀 Features
+
+- **Comprehensive Dashboard**: Visual analytics and statistics for applications, approvals, and rejections
+- **Application Management**: Review and process student applications for urban access passes
+- **User Management**: Manage administrators and their access levels
+- **Division Management**: Organize and track different urban divisions
+- **Reporting**: Generate and view reports on pass usage and distribution
+- **Authentication**: Secure login and registration system
+- **Responsive Design**: Works seamlessly on desktop and tablet devices
+- **Data Visualization**: Interactive charts and graphs using Recharts
+
+## 📱 Pages
+
+### Dashboard
+
+- Overview of application statistics
+- Pass type distribution analytics
+- Division-wise application distribution
+- Weekly revenue tracking
+
+### Applications
+
+- List of pending applications
+- Search and filter functionality
+- Quick access to application verification
+
+### Verify Application
+
+- Side-by-side comparison of submitted and original details
+- Approve or reject applications with reason
+- Confirmation modals for actions
+
+### User Management
+
+- List of administrators
+- Add, edit, or remove admin users
+- Assign divisions and permissions
+
+### Divisions
+
+- Manage urban divisions
+- View colleges and schools in each division
+- Track pass distribution by division
+
+### Reports
+
+- Generate custom reports
+- Export data in various formats
+- Visualize trends and patterns
+
+## 🛠️ Built With
+
+### Frontend
+- [React](https://reactjs.org/) - Frontend library
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Vite](https://vitejs.dev/) - Build tool and development server
+- [Ant Design](https://ant.design/) - UI component library
+- [Recharts](https://recharts.org/) - Charting library for data visualization
+- [React Router](https://reactrouter.com/) - Navigation and routing
+- [Axios](https://axios-http.com/) - HTTP client
+
+### Backend
+- [Spring Boot](https://spring.io/projects/spring-boot) - Java-based framework
+- [Java](https://www.java.com/) - Programming language
+- [PostgreSQL](https://www.postgresql.org/) - Relational database
