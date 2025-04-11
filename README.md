@@ -40,16 +40,13 @@ UrbanAccess Admin Portal is a comprehensive administration system for managing u
 ## ✨ Live Demo
 
 <div align="center">
-    [![UrbanAccess Admin](client/src/assets/img/screenshots/signup.jpeg)](https://your-live-link-here.com)
-</div>
-
-[![Live Demo](https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify)](https://your-live-link-here.com)
-
-<div align="center">
   <a href="https://your-live-link-here.com" target="_blank">
     <img src="client/src/assets/img/screenshots/signup.jpeg" alt="Project Preview" width="800"/>
   </a>
 </div>
+
+[![Live Demo](https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify)](https://your-live-link-here.com)
+
 
 ## 📸 Screenshots
 
@@ -116,6 +113,7 @@ UrbanAccess Admin Portal is a comprehensive administration system for managing u
 ## 🛠️ Built With
 
 ### Frontend
+
 - [React](https://reactjs.org/) - Frontend library
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 - [Vite](https://vitejs.dev/) - Build tool and development server
@@ -125,6 +123,7 @@ UrbanAccess Admin Portal is a comprehensive administration system for managing u
 - [Axios](https://axios-http.com/) - HTTP client
 
 ### Backend
+
 - [Spring Boot](https://spring.io/projects/spring-boot) - Java-based framework
 - [Java](https://www.java.com/) - Programming language
 - [PostgreSQL](https://www.postgresql.org/) - Relational database
