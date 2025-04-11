@@ -41,12 +41,15 @@ UrbanAccess Admin Portal is a comprehensive administration system for managing u
 
 <div align="center">
   <a href="https://your-live-link-here.com" target="_blank">
-    <img src="client/src/assets/img/screenshots/signup.jpeg" alt="Project Preview" width="800"/>
+    <img src="client/src/assets/img/screenshots/signup.jpeg" alt="Project Preview" width="500"/>
   </a>
 </div>
 
-[![Live Demo](https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify)](https://your-live-link-here.com)
-
+<div align="center">
+  <a href="https://your-live-link-here.com" target="_blank">
+    <img src="https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify" alt="Project Preview" />
+  </a>
+</div>
 
 ## 📸 Screenshots
 
