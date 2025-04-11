@@ -1,7 +1,7 @@
 # UrbanAccess Admin Portal
 
 <div align="center">
-  <img src="src/assets/img/screenshots/home.jpeg" alt="UrbanAccess Admin Dashboard" width="800">
+  <img src="client/src/assets/img/screenshots/home.jpeg" alt="UrbanAccess Admin Dashboard" width="800">
 </div>
 
 <div align="center">
@@ -39,26 +39,28 @@ UrbanAccess Admin Portal is a comprehensive administration system for managing u
 
 ## ✨ Live Demo
 
-[![UrbanAccess Admin](src/assets/img/screenshots/signup.jpegg)](https://your-live-link-here.com)
+<div align="center">
+    [![UrbanAccess Admin](client/src/assets/img/screenshots/signup.jpeg)](https://your-live-link-here.com)
+</div>
 
 [![Live Demo](https://img.shields.io/badge/View_Live_Demo-Netlify-success?style=for-the-badge&logo=netlify)](https://your-live-link-here.com)
 
 <div align="center">
   <a href="https://your-live-link-here.com" target="_blank">
-    <img src="src/assets/screenshots/verify-application.png" alt="Project Preview" width="800"/>
+    <img src="client/src/assets/img/screenshots/signup.jpeg" alt="Project Preview" width="800"/>
   </a>
 </div>
 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="src/assets/screenshots/dashboard.png" alt="Dashboard" width="400" style="margin-right: 10px;">
-  <img src="src/assets/screenshots/applications.png" alt="Applications" width="400">
+  <img src="client/src/assets/img/screenshots/home.jpeg" alt="Dashboard" width="400" style="margin-right: 10px;">
+  <img src="client/src/assets/img/screenshots/divisions.jpeg" alt="Applications" width="400">
 </div>
 
 <div align="center" style="margin-top: 20px;">
-  <img src="src/assets/screenshots/verify-application.png" alt="Verify Application" width="400" style="margin-right: 10px;">
-  <img src="src/assets/screenshots/user-management.png" alt="User Management" width="400">
+  <img src="client/src/assets/img/screenshots/applications.jpeg" alt="Verify Application" width="400" style="margin-right: 10px;">
+  <img src="client/src/assets/img/screenshots/reports.jpeg" alt="User Management" width="400">
 </div>
 
 ## 🚀 Features
